@@ -1,0 +1,24 @@
+<f:be.container 
+	includeCssFiles="{
+		0: '{f:uri.resource(path:\'Css/{snowbabel_style}\')}', 
+		1: '{f:uri.resource(path:\'Css/angular-material.min.css\')}',
+		2: 'https://fonts.googleapis.com/icon?family=Material+Icons'}"
+	includeJsFiles="{
+		0: '{f:uri.resource(path:\'JavaScript/jquery.min.js\')}', 
+		1: '{f:uri.resource(path:\'JavaScript/Angular/angular.min.js\')}', 
+		2: '{f:uri.resource(path:\'JavaScript/Angular/angular-animate.min.js\')}', 
+		3: '{f:uri.resource(path:\'JavaScript/Angular/angular-aria.min.js\')}', 
+		4: '{f:uri.resource(path:\'JavaScript/Angular/angular-messages.min.js\')}', 
+		5: '{f:uri.resource(path:\'JavaScript/Angular/angular-material.min.js\')}'}" >
+
+    <!-- <link rel="stylesheet" type="text/css" href="/typo3conf/ext/snowbabel/Resources/Public/Css/{snowbabel_style}" media="all"> -->
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css" media="all">
+    <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="all"> -->
+
+	<script type="text/javascript" src="/typo3conf/ext/snowbabel/Resources/Public/JavaScript/Angular/settings.js"></script>
+
+	<f:render section="content" />
+	<div class="loader">
+		<img src="/T9/typo3conf/ext/snowbabel/Resources/Public/Images/spinner-circle-light.svg" width="100px" height="100px" id="spinner">
+	</div>
+</f:be.container>
