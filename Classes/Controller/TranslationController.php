@@ -1,5 +1,8 @@
 <?php
+
 namespace Snowflake\Snowbabel\Controller;
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -26,22 +29,22 @@ namespace Snowflake\Snowbabel\Controller;
 
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-
 /**
  * Class TranslationController
  *
  * @package Snowflake\Snowbabel\Controller
  */
-class TranslationController extends ActionController {
+class TranslationController extends ActionController
+{
 
-
-	/**
-	 * Show general information and the installed modules
-	 *
-	 * @return void
-	 */
-	public function indexAction() {
-
-	}
-
+    public function indexAction(): void
+    {
+        $pageRenderer = GeneralUtility::makeInstance('TYPO3\CMS\Core\Page\PageRenderer');
+        $compatibility = 1;
+        $snowbabel_style = 'Translation.css';
+        $this->view->assignMultiple(array(
+            'compatibility' => $compatibility,
+            'snowbabel_style' => $snowbabel_style, 
+        ));
+    }
 }
