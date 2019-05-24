@@ -1,22 +1,140 @@
-{namespace snowbabel=Snowflake\Snowbabel\ViewHelpers}
+<f:layout name="Translation" />
 
-<snowbabel:container
-		loadExtJs="true"
-		loadExtJsTheme="true"
-		enableExtJsDebug="false"
-		includeCssFiles="{
-			0: '{f:uri.resource(path:\'Css/Translation.css\')}'
-		}"
-		includeJsFiles="{
-			0: 'ajax.php?ajaxID=ExtDirect::getAPI&namespace=TYPO3.Snowbabel',
-			1: '{f:uri.resource(path:\'JavaScript/Ux/SearchField.js\')}',
-			2: '{f:uri.resource(path:\'JavaScript/Ux/Spotlight.js\')}',
-			3: '{f:uri.resource(path:\'JavaScript/Miscellaneous/snowbabel_generals.js\')}',
-			4: '{f:uri.resource(path:\'JavaScript/Translation/snowbabel_listview.js\')}',
-			5: '{f:uri.resource(path:\'JavaScript/Translation/snowbabel_columnselection.js\')}',
-			6: '{f:uri.resource(path:\'JavaScript/Translation/snowbabel_languageselection.js\')}',
-			7: '{f:uri.resource(path:\'JavaScript/Translation/snowbabel_extensionmenu.js\')}',
-			8: '{f:uri.resource(path:\'JavaScript/Translation/snowbabel_viewports.js\')}',
-			9: '{f:uri.resource(path:\'JavaScript/Translation/snowbabel_app.js\')}'
-		}"
-		addJsInlineFile="EXT:snowbabel/Resources/Private/Language/locallang_translation.xlf" />
+<f:section name="content">
+    <f:flashMessages />
+    <div ng-app="translation" ng-cloak>
+        <md-content class="md-padding">
+            <div id="layoutContainer" class="fixed-box" layout="row" ng-cloak layout-wrap ng-controller="inputController as ctrl">
+                <div flex="10">
+                    <md-content layout="column" flex>
+                        <div class="table-responsive-vertical shadow-z-1">
+                            <table id="table" class="table table-hover table-mc-light-blue">
+                                <thead>
+                                    <tr>
+                                        <th>Extensions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-scroll">
+                                    <tr md-row md-select="doc" ng-disabled="" ng-repeat="ext in extensions" class="custom-chip"
+                                        id="extension-filter">
+                                        <f:alias map="{l: '{', r: '}'}">
+                                            <td md-cell value="{l}{l}ext.ExtensionId{r}{r}" class="chk-btn no-border">
+                                                <input type="checkbox" value="{l}{l}ext.ExtensionId{r}{r}" class="chk-btn label-input extensions"
+                                                    id="{l}{l}ext.ExtensionKey{r}{r}">
+                                                <label md-whiteframe class="checkbox-inline" ng-click="extSelection(ext)">{l}{l}ext.ExtensionTitle{r}{r}</label>
+                                            </td>
+                                        </f:alias>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </md-content>
+                </div>
+                <div flex="75">
+                    <md-content layout="column" flex>
+                        <div class="table-responsive-vertical shadow-z-1">
+                            <table rz-table id="label-table" class="table table-mc-light-blue">
+                                <div flex="grow">
+                                    <md-input-container class="md-icon-float md-block" style="width:95%; margin-left:25px;">
+                                      <!-- Use floating label instead of placeholder -->
+                                      <label>Search</label>
+                                      <input type="text" class="label-search">
+                                    </md-input-container>
+                                </div>
+                                <thead>
+                                    <tr>
+                                        <th md-row md-select="doc" ng-disabled="" ng-repeat="headings in labels.headings"
+                                            class="custom-chip" ng-if="!headings.hidden">
+                                            <f:alias map="{l: '{', r: '}'}">
+                                                {l}{l}headings.header{r}{r}
+                                            </f:alias>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr md-row md-select="doc" ng-disabled="" ng-repeat="dispLabels in labels.LabelRows | orderBy: 'LabelName'"
+                                    class="custom-chip">
+                                    <f:alias map="{l: '{', r: '}'}">
+                                        <td md-cell ng-class="{'first-cell': $first}" ng-repeat="(key, langLabels) in dispLabels track by $index"
+                                            style="position:relative;
+                                        padding:0px;"
+                                            ng-if="langLabels.indexOf('TranslationId') == -1">
+                                            <div class="custom-table-cell" contenteditable ng-if="$index > 2"
+                                                ng-blur="editLabel($event,key,dispLabels)">{l}{l}langLabels{r}{r}</div>
+                                            <div class="custom-table-cell" ng-if="$index <= 2">{l}{l}langLabels{r}{r}</div>
+
+                                        </td>
+                                    </f:alias>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </md-content>
+                </div>
+                <div flex="10">
+                    <md-content layout="column" flex>
+                        <div class="table-responsive-vertical shadow-z-1">
+                            <table id="table" class="table table-hover table-mc-light-blue">
+                                <thead>
+                                    <tr>
+                                        <th>Languages</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-scroll-lang">
+                                    <tr md-row md-select="doc" ng-disabled="" ng-repeat="language in availlang" class="custom-chip">
+                                        <f:alias map="{l: '{', r: '}'}">
+                                            <td md-cell value="{l}{l}language.LanguageId{r}{r}" class="chk-btn no-border"
+                                                ng-click="langSelection(language)">
+                                                <input type="checkbox" name="selectedlanguages[]" value="{l}{l}language.LanguageId{r}{r}"
+                                                    class="chk-btn label-input" id="{l}{l}language.LanguageKey{r}{r}"
+                                                    ng-checked="language.LanguageSelected">
+                                                <label md-whiteframe class="checkbox-inline">{l}{l}language.LanguageName{r}{r}</label>
+                                            </td>
+                                        </f:alias>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive-vertical shadow-z-1 col-options">
+                            <table id="table" class="table table-hover table-mc-light-blue ">
+                                <thead>
+                                    <tr>
+                                        <th>Column Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr md-row class="custom-chip">
+                                        <td md-cell class="chk-btn no-border">
+                                            <input type="checkbox" value="" class="chk-btn label-input" ng-checked="labels.ShowLabels">
+                                            <label class="checkbox-inline" ng-click="colSelection($event)" name="ShowColumnLabel">Label Name</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr md-row class="custom-chip">
+                                        <td md-cell class="chk-btn no-border">
+                                            <input type="checkbox" value="" class="chk-btn label-input" ng-checked="labels.ShowDefaults">
+                                            <label class="checkbox-inline" ng-click="colSelection($event)" name="ShowColumnDefault">Default Label</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </md-content>
+                </div>
+        </md-content>
+    </div>
+
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="myDialog">
+            <md-dialog layout-padding>
+                <h3>Configuration Changed</h3>
+                <p>
+                    The configuration settings of snowbabel seems to be updated and there is a pending scheduler task
+                    run. <br>Please run the scheduler task first to apply the latest changes into the extension.
+                </p>
+            </md-dialog>
+        </div>
+    </div>
+
+
+</f:section>
