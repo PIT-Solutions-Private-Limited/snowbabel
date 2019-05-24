@@ -2,16 +2,23 @@
 # Add field to table 'be_groups'
 #
 CREATE TABLE be_groups (
-	tx_snowbabel_extensions tinytext,
-	tx_snowbabel_languages tinytext
+	tx_snowbabel_extensions TEXT,
+	tx_snowbabel_languages TEXT
 );
 
 #
 # Add field to table 'be_users'
 #
 CREATE TABLE be_users (
-	tx_snowbabel_extensions tinytext,
-	tx_snowbabel_languages tinytext
+	tx_snowbabel_extensions TEXT,
+	tx_snowbabel_languages TEXT
+);
+
+#
+# Add field to table 'static_languages'
+#
+CREATE TABLE static_languages (
+	tx_snowbabel_override_language_key varchar(5) DEFAULT NULL
 );
 
 CREATE TABLE tx_snowbabel_users (
@@ -21,7 +28,7 @@ CREATE TABLE tx_snowbabel_users (
 	crdate int(11) DEFAULT '0' NOT NULL,
 	deleted tinyint(4) DEFAULT '0' NOT NULL,
 	be_users_uid int(11) DEFAULT '0' NOT NULL,
-	SelectedLanguages tinytext NOT NULL,
+	SelectedLanguages varchar(255) DEFAULT '0' NOT NULL,
 	ShowColumnLabel tinyint(4) DEFAULT '1' NOT NULL,
 	ShowColumnDefault tinyint(4) DEFAULT '1' NOT NULL,
 

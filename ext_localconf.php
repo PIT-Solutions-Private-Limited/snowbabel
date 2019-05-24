@@ -1,18 +1,19 @@
 <?php
 
-if (!defined('TYPO3_MODE')) {
+if(!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerExtDirectComponent(
-	'TYPO3.Snowbabel.ExtDirect',
-	'Snowflake\\Snowbabel\\Connection\ExtDirectServer'
-);
-
 // Add Scheduler Configuration For Indexing
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Snowflake\\Snowbabel\\Task\\Indexing'] = array (
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Snowflake\\Snowbabel\\Task\\Indexing'] = array(
 	'extension' => $_EXTKEY,
 	'title' => 'Snowbabel - Indexing',
 	'description' => 'Indexes all translation on current installation',
 	'additionalFields' => '',
 );
+
+//commenting out temporarily as the exact behaviour of the wizard need to be analysed.
+//$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['InitOverrideLanguageKey'] = \Snowflake\Snowbabel\Updates\InitOverrideLanguageKey::class;
+
+//hook for overriding localization.js,recordlist.js and including deepl.css
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-preProcess']['snowbabel'] = 'Snowflake\\Snowbabel\\Hook\\BackendHook->executePreRenderHook';
