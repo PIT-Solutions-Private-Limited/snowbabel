@@ -1,7 +1,7 @@
 <?php
 namespace PITS\Snowbabel\Record;
 
-/***************************************************************
+/*
  *  Copyright notice
  *
  *  (c) 2011 Daniel Alder <info@snowflake.ch>
@@ -22,36 +22,29 @@ namespace PITS\Snowbabel\Record;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ */
 
 use PITS\Snowbabel\Service\Configuration;
 
 /**
- * Class Columns
- *
- * @package PITS\Snowbabel\Record
+ * Class Columns.
  */
 class Columns
 {
-
-
     /**
      * @var \PITS\Snowbabel\Service\Configuration
      */
     protected $confObj;
-
 
     /**
      * @var
      */
     protected $ColumnsConfiguration;
 
-
     /**
      * @var array
      */
-    protected $Columns = array();
-
+    protected $Columns = [];
 
     /**
      * @param Configuration $confObj
@@ -70,7 +63,6 @@ class Columns
         $this->initColumns();
     }
 
-
     /**
      * @return array
      */
@@ -80,43 +72,33 @@ class Columns
         return $this->Columns;
     }
 
-
     /**
      * @return void
      */
     private function initColumns()
     {
-
-        if (is_array($this->ColumnsConfiguration)) {
+        if (\is_array($this->ColumnsConfiguration)) {
             foreach ($this->ColumnsConfiguration as $Id => $Property) {
-
                 $Label = $this->getColumnLabel($Id);
 
-                array_push($this->Columns, array(
+                array_push($this->Columns, [
                     'ColumnId' => $Id,
                     'ColumnName' => $Label,
-                    'ColumnSelected' => $Property
-                ));
-
+                    'ColumnSelected' => $Property,
+                ]);
             }
         }
-
     }
-
 
     /**
      * @param $Id
+     *
      * @return string
      */
     private function getColumnLabel($Id)
     {
+        $LabelName = 'translation_columnselection_'.$Id;
 
-        $LabelName = 'translation_columnselection_' . $Id;
-
-        $Label = $this->confObj->getLL($LabelName);
-
-        return $Label;
-
+        return $this->confObj->getLL($LabelName);
     }
-
 }

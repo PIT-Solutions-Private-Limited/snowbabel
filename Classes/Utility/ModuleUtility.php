@@ -1,7 +1,7 @@
 <?php
 namespace PITS\Snowbabel\Utility;
 
-/***
+/*
  *
  * This file is part of the "Snowbabel" Extension for TYPO3 CMS.
  *
@@ -10,19 +10,21 @@ namespace PITS\Snowbabel\Utility;
  *
  *  (c) 2018 Anu Bhuvanendran Nair <anu.bn@pitsolutions.com>, PIT Solutions Pvt. Ltd.
  *
- ***/
+ */
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use PITS\Snowbabel\Service\Configuration;
 use PITS\Snowbabel\Service\Translations;
-use TYPO3\CMS\Core\Http\AjaxRequestHandler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ModuleUtility
 {
+    /**
+     * @var string
+     */
+    public $queryBuilder;
 
     /**
      * @var Configuration
@@ -55,25 +57,23 @@ class ModuleUtility
     private $labelsObj;
 
     /**
-     * @var string
-     */
-    public $queryBuilder = null;
-
-    /**
-     * Description
+     * Description.
+     *
      * @return type
      */
     public function __construct()
     {
-        $this->queryBuilder       = GeneralUtility::makeInstance(ConnectionPool::class);
+        $this->queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class);
     }
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function ActionController(ServerRequestInterface $request, ResponseInterface $response) {
+     */
+    public function ActionController(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // get configuration object
         $this->getConfigurationObject();
 
@@ -81,9 +81,9 @@ class ModuleUtility
         $languageId = $request->getQueryParams()['LanguageId'];
         $columnId = $request->getQueryParams()['ColumnId'];
 
-        if(!empty($languageId) && $action == 'LanguageSelection') {
+        if (!empty($languageId) && 'LanguageSelection' === $action) {
             $this->confObj->actionUserConfSelectedLanguages($languageId);
-        } elseif( $action == 'ListView_Update') {
+        } elseif ('ListView_Update' === $action) {
             $action = $request->getQueryParams()['ActionKey'];
             $translationId = $request->getQueryParams()['TranslationId'];
             $translationValue = $request->getQueryParams()['TranslationValue'];
@@ -92,33 +92,34 @@ class ModuleUtility
             $this->getLabelsObject();
 
             // Update Translation
-            $this->labelsObj->updateTranslation($translationId,$translationValue);
-        } elseif(!empty($columnId) && $action == 'ColumnSelection') {
+            $this->labelsObj->updateTranslation($translationId, $translationValue);
+        } elseif (!empty($columnId) && 'ColumnSelection' === $action) {
             $this->confObj->actionUserConfigurationColumns($columnId);
-        } elseif( $action == 'ConfigurationChanged') {
-
+        } elseif ('ConfigurationChanged' === $action) {
             // Did Configuration Changed?
-            if(!$this->confObj->getApplicationConfiguration('ConfigurationChanged')) {
+            if (!$this->confObj->getApplicationConfiguration('ConfigurationChanged')) {
                 $response->getBody()->write(json_encode('success'));
-                return $response;
-            } else {
-                $response->getBody()->write(json_encode('failure'));
+
                 return $response;
             }
+            $response->getBody()->write(json_encode('failure'));
 
+            return $response;
         }
 
-        $this->getListView($request,$response);
+        $this->getListView($request, $response);
+
         return $response;
     }
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getExtensionsList(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getExtensionsList(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // get configuration object
         $this->getConfigurationObject();
 
@@ -129,16 +130,18 @@ class ModuleUtility
         $Extensions = $this->extObj->getExtensions();
 
         $response->getBody()->write(json_encode($Extensions));
+
         return $response;
     }
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getLanguageSelection(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getLanguageSelection(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // get configuration object
         $this->getConfigurationObject();
 
@@ -149,17 +152,18 @@ class ModuleUtility
         $Languages = $this->langObj->getLanguages();
 
         $response->getBody()->write(json_encode($Languages));
+
         return $response;
     }
 
-
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getColumnSelection(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getColumnSelection(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // get configuration object
         $this->getConfigurationObject();
 
@@ -170,16 +174,18 @@ class ModuleUtility
         $Columns = $this->colObj->getColumns();
 
         $response->getBody()->write(json_encode($Columns));
+
         return $response;
     }
 
     /**
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getGeneralSettings(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getGeneralSettings(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // get configuration object
         $this->getConfigurationObject();
 
@@ -208,17 +214,18 @@ class ModuleUtility
         $response->getBody()->write(json_encode($FormData));
 
         return $response;
-
     }
 
     /**
-     * Renders complete list of available extensions
+     * Renders complete list of available extensions.
+     *
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getExtensionMenu(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getExtensionMenu(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // Todo: check logic
         $ExtensionArray = [];
 
@@ -238,12 +245,11 @@ class ModuleUtility
         $approvedExtensions = $this->confObj->getApplicationConfiguration('ApprovedExtensions');
 
         // Prepare For Output
-        if(is_array($Extensions) && count($Extensions) > 0) {
-            foreach($Extensions as $Extension) {
-
+        if (\is_array($Extensions) && \count($Extensions) > 0) {
+            foreach ($Extensions as $Extension) {
                 // Do Not Add Extension If Already Approved
-                if(!in_array($Extension, $approvedExtensions)) {
-                    array_push($ExtensionArray, array('ExtensionKey' => $Extension));
+                if (!\in_array($Extension, $approvedExtensions, true)) {
+                    array_push($ExtensionArray, ['ExtensionKey' => $Extension]);
                 }
             }
         }
@@ -251,21 +257,24 @@ class ModuleUtility
         $i = 0;
         foreach ($ExtensionArray as $key => $value) {
             $extArray[$i] = $value['ExtensionKey'];
-            $i++;
+            ++$i;
         }
 
         $response->getBody()->write(json_encode($extArray));
+
         return $response;
     }
 
     /**
-     * Renders list of selected extensions
+     * Renders list of selected extensions.
+     *
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getApprovedExtensionsAdded(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getApprovedExtensionsAdded(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // todo: check logic
         $ApprovedExtensionsArray = [];
 
@@ -276,30 +285,33 @@ class ModuleUtility
         $ApprovedExtensions = $this->confObj->getApplicationConfiguration('ApprovedExtensions');
 
         // Prepare For Output
-        if(is_array($ApprovedExtensions) && count($ApprovedExtensions) > 0) {
-            foreach($ApprovedExtensions as $ApprovedExtension) {
-                array_push($ApprovedExtensionsArray, array('ExtensionKey' => $ApprovedExtension));
+        if (\is_array($ApprovedExtensions) && \count($ApprovedExtensions) > 0) {
+            foreach ($ApprovedExtensions as $ApprovedExtension) {
+                array_push($ApprovedExtensionsArray, ['ExtensionKey' => $ApprovedExtension]);
             }
         }
 
         $i = 0;
         foreach ($ApprovedExtensionsArray as $key => $value) {
             $extArray[$i] = $value['ExtensionKey'];
-            $i++;
+            ++$i;
         }
 
         $response->getBody()->write(json_encode($extArray));
+
         return $response;
     }
 
     /**
-     * Renders complete list of available languages
+     * Renders complete list of available languages.
+     *
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getGeneralSettingsLanguages(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getGeneralSettingsLanguages(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // Get Configuration Object
         $this->getConfigurationObject();
 
@@ -307,18 +319,20 @@ class ModuleUtility
         $Languages = $this->confObj->getLanguages(true);
 
         $response->getBody()->write(json_encode($Languages));
-        return $response;
 
+        return $response;
     }
 
     /**
-     * Renders list of selected languages
+     * Renders list of selected languages.
+     *
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getGeneralSettingsLanguagesAdded(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getGeneralSettingsLanguagesAdded(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // todo: check logic
         $extjsParams = [];
 
@@ -329,33 +343,36 @@ class ModuleUtility
         $Languages = $this->confObj->getApplicationConfiguration('AvailableLanguages');
 
         $response->getBody()->write(json_encode($Languages));
+
         return $response;
     }
 
     /**
-     * Renders list of labels for selected extensions and languages
+     * Renders list of labels for selected extensions and languages.
+     *
      * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * @param ResponseInterface      $response
+     *
      * @return array
-    */
-    public function getListView(ServerRequestInterface $request, ResponseInterface $response) {
-
+     */
+    public function getListView(ServerRequestInterface $request, ResponseInterface $response)
+    {
         $params = [];
 
         // get configuration object
         $this->getConfigurationObject();
 
-        if(isset($request->getQueryParams()['uid'])){
+        if (isset($request->getQueryParams()['uid'])) {
             $params['ExtensionId'] = $request->getQueryParams()['uid'];
-        }elseif(isset($request->getQueryParams()['ExtensionId'])){
+        } elseif (isset($request->getQueryParams()['ExtensionId'])) {
             $params['ExtensionId'] = $request->getQueryParams()['ExtensionId'];
-        }else{
+        } else {
             $params['ExtensionId'] = 1;
         }
-        
+
         $params['ListViewStart'] = 0;
         $params['ListViewLimit'] = 50;
-        $params['SearchGlobal'] = FALSE;
+        $params['SearchGlobal'] = false;
         $params['SearchString'] = '';
 
         // Get Label Object
@@ -370,90 +387,89 @@ class ModuleUtility
         $Labels = $this->labelsObj->getLabels($params);
 
         foreach ($Labels['columns'] as $key => $value) {
-            if(count($value)>3){
-                $Labels['headings'][]= $value;
+            if (\count($value) > 3) {
+                $Labels['headings'][] = $value;
             }
-            if($value['header']=='Label' && $value['hidden']==TRUE){
-                $Labels['ShowLabels'] = FALSE;
+            if ('Label' === $value['header'] && true === $value['hidden']) {
+                $Labels['ShowLabels'] = false;
                 foreach ($Labels['LabelRows'] as $key => $result) {
                     unset($Labels['LabelRows'][$key]['LabelName']);
                 }
-            } elseif ($value['header']=='Label' && $value['hidden']==FALSE){
-                $Labels['ShowLabels'] = TRUE;
+            } elseif ('Label' === $value['header'] && false === $value['hidden']) {
+                $Labels['ShowLabels'] = true;
             }
-            if($value['header']=='Default' && $value['hidden']==TRUE){
-                $Labels['ShowDefaults'] = FALSE;
+            if ('Default' === $value['header'] && true === $value['hidden']) {
+                $Labels['ShowDefaults'] = false;
                 foreach ($Labels['LabelRows'] as $key => $result) {
                     unset($Labels['LabelRows'][$key]['LabelDefault']);
                 }
-            } elseif ($value['header']=='Default' && $value['hidden']==FALSE){
-                $Labels['ShowDefaults'] = TRUE;
+            } elseif ('Default' === $value['header'] && false === $value['hidden']) {
+                $Labels['ShowDefaults'] = true;
             }
         }
 
         $response->getBody()->write(json_encode($Labels));
+
         return $response;
     }
 
     /**
-     * Creates a configuration object
-     * @return void
+     * Creates a configuration object.
      */
-    private function getConfigurationObject() {
-        if(!is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
+    private function getConfigurationObject()
+    {
+        if (!\is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
             $this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration');
         }
     }
 
     /**
-     * Creates an object of Labels
-     * @return void
+     * Creates an object of Labels.
      */
-    private function getSystemTranslationObject() {
-        if(!is_object($this->systemTranslationObj) && !($this->systemTranslationObj instanceof Translations)) {
+    private function getSystemTranslationObject()
+    {
+        if (!\is_object($this->systemTranslationObj) && !($this->systemTranslationObj instanceof Translations)) {
             $this->systemTranslationObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Translations');
         }
     }
 
     /**
-     * Creates an object of Extensions
-     * @return void
+     * Creates an object of Extensions.
      */
-    private function getExtensionsObject() {
-        if(!is_object($this->extObj) && !($this->extObj instanceof Extensions)) {
+    private function getExtensionsObject()
+    {
+        if (!\is_object($this->extObj) && !($this->extObj instanceof Extensions)) {
             $this->extObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Extensions', $this->confObj);
         }
     }
 
     /**
-     * Creates an object of Languages
-     * @return void
+     * Creates an object of Languages.
      */
-    private function getLanguageObject() {
-        if(!is_object($this->langObj) && !($this->langObj instanceof Languages)) {
+    private function getLanguageObject()
+    {
+        if (!\is_object($this->langObj) && !($this->langObj instanceof Languages)) {
             $this->langObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Languages', $this->confObj);
         }
     }
 
-
     /**
-     * Creates an object of Columns
-     * @return void
+     * Creates an object of Columns.
      */
-    private function getColumnObject() {
-        if(!is_object($this->colObj) && !($this->colObj instanceof Columns)) {
+    private function getColumnObject()
+    {
+        if (!\is_object($this->colObj) && !($this->colObj instanceof Columns)) {
             $this->colObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Columns', $this->confObj);
         }
     }
 
     /**
-     * Creates an object of Labels
-     * @return void
+     * Creates an object of Labels.
      */
-    private function getLabelsObject() {
-        if(!is_object($this->labelsObj) && !($this->labelsObj instanceof Labels)) {
+    private function getLabelsObject()
+    {
+        if (!\is_object($this->labelsObj) && !($this->labelsObj instanceof Labels)) {
             $this->labelsObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Labels', $this->confObj);
         }
     }
-
 }

@@ -1,7 +1,7 @@
 <?php
 namespace PITS\Snowbabel\Record;
 
-/***************************************************************
+/*
  *  Copyright notice
  *
  *  (c) 2011 Daniel Alder <info@snowflake.ch>
@@ -22,12 +22,10 @@ namespace PITS\Snowbabel\Record;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ */
 
 /**
- * Class Extensions
- *
- * @package PITS\Snowbabel\Record
+ * Class Extensions.
  */
 class Extensions
 {
@@ -41,45 +39,23 @@ class Extensions
      */
     protected $Db;
 
-
     /**
      * @var
      */
     protected $CurrentTableId;
 
-    /**
-     *
-     */
     protected $ShowLocalExtensions;
 
-    /**
-     *
-     */
     protected $ShowSystemExtensions;
 
-    /**
-     *
-     */
     protected $ShowGlobalExtensions;
 
-    /**
-     *
-     */
     protected $ApprovedExtensions;
 
-    /**
-     *
-     */
     protected $ShowOnlyLoadedExtensions;
 
-    /**
-     *
-     */
     protected $IsAdmin;
 
-    /**
-     *
-     */
     protected $PermittedExtensions;
 
     /**
@@ -112,7 +88,7 @@ class Extensions
      */
     public function getExtensions()
     {
-        $Conf = array(
+        $Conf = [
             'Fields' => 'uid AS ExtensionId,ExtensionKey,ExtensionTitle,ExtensionDescription,ExtensionCategory,ExtensionIcon,ExtensionLocation,ExtensionPath,ExtensionLoaded',
             'Local' => $this->ShowLocalExtensions,
             'System' => $this->ShowSystemExtensions,
@@ -121,21 +97,16 @@ class Extensions
             'ApprovedExtensions' => $this->ApprovedExtensions,
             'OrderBy' => 'ExtensionTitle',
             'Debug' => '0',
-        );
+        ];
 
         if (!$this->IsAdmin) {
-
             // Do Not Show Anything If No Permitted Extensions Available
-            if ($this->PermittedExtensions == '') {
+            if ('' === $this->PermittedExtensions) {
                 return null;
-            } else {
-                $Conf['PermittedExtensions'] = $this->PermittedExtensions;
             }
+            $Conf['PermittedExtensions'] = $this->PermittedExtensions;
         }
 
-        $Extensions = $this->Db->getExtensions($this->CurrentTableId, $Conf);
-
-        return $Extensions;
+        return $this->Db->getExtensions($this->CurrentTableId, $Conf);
     }
-
 }

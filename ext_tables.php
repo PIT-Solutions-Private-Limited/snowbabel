@@ -2,11 +2,8 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function()
-    {
-
+    function () {
         if (TYPO3_MODE === 'BE') {
-
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
                 'PITS.Snowbabel',
                 'snowbabel',
@@ -15,7 +12,7 @@ call_user_func(
                 [],
                 [
                     'access' => 'user,group',
-                    'labels' => 'LLL:EXT:snowbabel/Resources/Private/Language/locallang_module_snowbabel.xlf'
+                    'labels' => 'LLL:EXT:snowbabel/Resources/Private/Language/locallang_module_snowbabel.xlf',
                 ]
             );
 
@@ -26,11 +23,10 @@ call_user_func(
                 '', // Position
                 [
                     'Translation' => 'index',
-                    
                 ],
                 [
                     'access' => 'user,group',
-                    'icon'   => 'EXT:snowbabel/ext_icon.svg',
+                    'icon' => 'EXT:snowbabel/ext_icon.svg',
                     'labels' => 'LLL:EXT:snowbabel/Resources/Private/Language/locallang_module_translation.xlf',
                 ]
             );
@@ -42,15 +38,13 @@ call_user_func(
                 '', // Position
                 [
                     'Settings' => 'index,submit',
-                    
                 ],
                 [
                     'access' => 'user,group',
-                    'icon'   => 'EXT:snowbabel/ext_icon.svg',
+                    'icon' => 'EXT:snowbabel/ext_icon.svg',
                     'labels' => 'LLL:EXT:snowbabel/Resources/Private/Language/locallang_module_settings.xlf',
                 ]
             );
-
         }
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('snowbabel', 'Configuration/TypoScript', 'Snowbabel');
@@ -73,8 +67,8 @@ call_user_func(
                     'itemsProcFunc' => 'PITS\Snowbabel\Hook\Tca->getExtensions',
                     'size' => 10,
                     'maxitems' => 9999,
-                    'default' => ''
-                ]
+                    'default' => '',
+                ],
             ],
             'tx_snowbabel_languages' => [
                 'exclude' => 1,
@@ -85,8 +79,8 @@ call_user_func(
                     'itemsProcFunc' => 'PITS\Snowbabel\Hook\Tca->getLanguages',
                     'size' => 10,
                     'maxitems' => 9999,
-                    'default' => ''
-                ]
+                    'default' => '',
+                ],
             ],
         ];
 

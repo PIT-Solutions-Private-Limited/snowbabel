@@ -1,7 +1,7 @@
 <?php
 namespace PITS\Snowbabel\Hook;
 
-/***************************************************************
+/*
  *  Copyright notice
  *
  *  (c) 2018 Anu Bhuvanendran Nair <anu.bn@pitsolutions.com>, PIT Solutions
@@ -27,22 +27,21 @@ namespace PITS\Snowbabel\Hook;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ */
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class BackendHook
 {
-
     /**
      * @var string
      */
-    public $queryBuilder = null;
+    public $queryBuilder;
 
     /**
-     * Description
+     * Description.
+     *
      * @return type
      */
     public function __construct()
@@ -52,25 +51,27 @@ class BackendHook
 
     /**
      * Execute PreRenderHook for possible manipulation:
-     * Add deepl.css,overrides localization.js and recordlist.js
+     * Add deepl.css,overrides localization.js and recordlist.js.
+     *
+     * @param mixed $hook
      */
     public function executePreRenderHook(&$hook)
     {
         //override Localization.js
         $flag = 0;
 
-        if (is_array($hook['cssFiles'])){
+        if (\is_array($hook['cssFiles'])) {
             foreach ($hook['cssFiles'] as $key => $value) {
-                if (is_int(strpos($key,"angular-material.min.css"))){
+                if (\is_int(strpos($key, 'angular-material.min.css'))) {
                     $flag = 1;
+
                     break;
                 }
             }
         }
-        
-        if ($flag == 1){
-            unset($hook['cssFiles']['sysext/backend/Resources/Public/Css/backend.css']);
-        }        
 
+        if (1 === $flag) {
+            unset($hook['cssFiles']['sysext/backend/Resources/Public/Css/backend.css']);
+        }
     }
 }
