@@ -1,19 +1,215 @@
-{namespace snowbabel=Snowflake\Snowbabel\ViewHelpers}
+<f:layout name="Settings" />
 
-<snowbabel:container
-		loadExtJs="true"
-		loadExtJsTheme="true"
-		enableExtJsDebug="false"
-		includeCssFiles="{
-			0: '{f:uri.resource(path:\'Css/Settings.css\')}'
-		}"
-		includeJsFiles="{
-			0: 'ajax.php?ajaxID=ExtDirect::getAPI&namespace=TYPO3.Snowbabel',
-			1: '{f:uri.resource(path:\'JavaScript/Ux/MultiSelect.js\')}',
-			2: '{f:uri.resource(path:\'JavaScript/Ux/ItemSelector.js\')}',
-			3: '{f:uri.resource(path:\'JavaScript/Miscellaneous/snowbabel_generals.js\')}',
-			4: '{f:uri.resource(path:\'JavaScript/Settings/snowbabel_generalsettings.js\')}',
-			5: '{f:uri.resource(path:\'JavaScript/Settings/snowbabel_viewports.js\')}',
-			9: '{f:uri.resource(path:\'JavaScript/Settings/snowbabel_app.js\')}'
-		}"
-		addJsInlineFile="EXT:snowbabel/Resources/Private/Language/locallang_settings.xlf" />
+<f:section name="content">
+	<f:flashMessages />
+	<div ng-app="settings" ng-cloak>
+		<div id="inputContainer" ng-controller="inputController as ctrl" ng-cloak>
+			<md-content class="md-padding">
+				<md-tabs md-dynamic-height="" md-border-bottom="" md-selected="{currentTab}">
+					<md-tab label="Paths">
+						<md-content class="md-padding">
+							<h1 class="md-display-2">Paths</h1>
+							<f:form action="submit" enctype="multipart/form-data" method="post">
+								<f:alias map="{l: '{', r: '}'}">
+									<md-input-container class="md-block" flex-gt-sm="">
+										<label>Local Extensions</label>
+										<input name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[LocalExtensionPath]" value="{l}{l}settings.data.LocalExtensionPath{r}{r}">
+									</md-input-container>
+
+									<md-input-container class="md-block" flex-gt-sm="">
+										<label>System Extensions</label>
+										<input name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[SystemExtensionPath]" value="{l}{l}settings.data.SystemExtensionPath{r}{r}">
+									</md-input-container>
+
+									<md-input-container class="md-block" flex-gt-sm="">
+										<label>Global Extensions</label>
+										<input name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[GlobalExtensionPath]" value="{l}{l}settings.data.GlobalExtensionPath{r}{r}">
+									</md-input-container>
+
+									<input type="hidden" value="0" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[paths]" />
+									<input class="md-raised md-button md-ink-ripple" type="submit" style="display: grid; background-color: rgba(252, 135, 0, 0.13);" value="SAVE" />
+								</f:alias>
+							</f:form>
+						</md-content>
+					</md-tab>
+					<md-tab label="Extensions">
+						<md-content class="md-padding">
+							<h1 class="md-display-2">Extensions</h1>
+							<f:form action="submit" enctype="multipart/form-data" method="post">
+								<div id="layoutContainer" class="fixed-box" layout="row" ng-cloak layout-wrap>
+									<div flex="45">
+                                        <div class="list-head">
+    										<h4>Available List</h4>
+                                            <md-input-container class="md-icon-float md-block" style="margin-left:25px;">
+                                                <!-- Use floating label instead of placeholder -->
+                                                <label>Search</label>
+                                                <input type="text" class="search">
+                                            </md-input-container>
+                                        </div>
+										<div class="form-group">
+											<div ng-repeat="extName in extensions" class="custom-chip">
+												<f:alias map="{l: '{', r: '}'}">
+													<input type="checkbox" name="selectedExtensions[]" value="{l}{l}extName{r}{r}" ng-checked="selection.indexOf(extName) > -1"
+													 class="chk-btn">
+													<label md-whiteframe="2" class="checkbox-inline" ng-click="toggleSelection(extName)">{l}{l}extName{r}{r}</label>
+												</f:alias>
+											</div>
+										</div>
+									</div>
+									<div flex="5"></div>
+									<div flex="45">
+                                        <div class="list-head">
+                                            <h4>Selected List</h4>
+                                            <md-input-container class="md-icon-float md-block" style="margin-left:25px;">
+                                                <!-- Use floating label instead of placeholder -->
+                                                <label>Search</label>
+                                                <input type="text" class="search">
+                                            </md-input-container>
+                                        </div>
+										<div class="form-group-right">
+											<div ng-repeat="extName in selectedExts" class="custom-chip">
+												<f:alias map="{l: '{', r: '}'}">
+													<input type="checkbox" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[selectedExtensions][{l}{l}extName{r}{r}]"
+													 value="{l}{l}extName{r}{r}" ng-checked="selectedExts.indexOf(extName) > -1" class="chk-btn">
+													<label class="checkbox-inline" ng-click="toggleDeSelection(extName)">{l}{l}extName{r}{r}</label>
+												</f:alias>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br>
+								<input type="hidden" value="1" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[extensions]" />
+								<input class="md-raised md-button md-ink-ripple" type="submit" style="display: grid; background-color: rgba(252, 135, 0, 0.13);" value="SAVE" />
+							</f:form>
+						</md-content>
+					</md-tab>
+					<md-tab label="Display Options">
+						<div id="inputContainer" class="inputDemo" ng-controller="inputController as ctrl" ng-cloak>
+							<md-content class="md-padding">
+								<h1 class="md-display-2">Display Options</h1>
+								<f:form action="submit" enctype="multipart/form-data" method="post">
+									<div id="layoutContainer" class="fixed-box" layout="row" ng-cloak layout-wrap>
+										<div flex="50">
+											<ul class="custom-list">
+												<li>Show Only Loaded Extensions</li>
+												<li>Language Names In Local Language</li>
+												<li>Show Local Extensions</li>
+												<li>Show System Extensions</li>
+												<li>Show Global Extensions</li>
+											</ul>
+										</div>
+										<div flex="50">
+											<ul class="custom-list-right">
+												<f:alias map="{l: '{', r: '}'}">
+													<li>
+														<md-checkbox ng-checked="settings.data.ShowOnlyLoadedExtensions" ng-model="display.optionone" aria-label="Show Only Loaded Extensions"></md-checkbox>
+														<input type="hidden" value="{l}{l}display.optionone{r}{r}" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[ShowOnlyLoadedExtensions]" />
+													</li>
+													<li>
+														<md-checkbox ng-checked="settings.data.ShowTranslatedLanguages" ng-model="display.optiontwo" aria-label="Language Names In Local Language"></md-checkbox>
+														<input type="hidden" value="{l}{l}display.optiontwo{r}{r}" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[ShowTranslatedLanguages]" />
+													</li>
+													<li>
+														<md-checkbox ng-checked="settings.data.ShowLocalExtensions" ng-model="display.optionthree" aria-label="Show Local Extensions"></md-checkbox>
+														<input type="hidden" value="{l}{l}display.optionthree{r}{r}" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[ShowLocalExtensions]" />
+													</li>
+													<li>
+														<md-checkbox ng-checked="settings.data.ShowSystemExtensions" ng-model="display.optionfour" aria-label="Show System Extensions"></md-checkbox>
+														<input type="hidden" value="{l}{l}display.optionfour{r}{r}" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[ShowSystemExtensions]" />
+													</li>
+													<li>
+														<md-checkbox ng-checked="settings.data.ShowGlobalExtensions" ng-model="display.optionfive" aria-label="Show Global Extensions"></md-checkbox>
+														<input type="hidden" value="{l}{l}display.optionfive{r}{r}" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[ShowGlobalExtensions]" />
+													</li>
+												</f:alias>
+											</ul>
+										</div>
+									</div>
+									<input type="hidden" value="2" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[displayoptions]" />
+									<input class="md-raised md-button md-ink-ripple" type="submit" style="display: grid; background-color: rgba(252, 135, 0, 0.13);" value="SAVE" />
+								</f:form>
+							</md-content>
+						</div>
+					</md-tab>
+					<md-tab label="Editing">
+						<md-content class="md-padding">
+							<h1 class="md-display-2">Editing</h1>
+							<f:form action="submit" enctype="multipart/form-data" method="post">
+								<div id="layoutContainer" class="fixed-box" layout="row" ng-cloak layout-wrap>
+									<div flex="50">
+										<ul class="custom-list">
+											<li>Copy Default Language To English</li>
+										</ul>
+									</div>
+									<div flex="50">
+										<ul class="custom-list-right">
+											<f:alias map="{l: '{', r: '}'}">
+												<li>
+													<md-checkbox ng-checked="settings.data.CopyDefaultLanguage" ng-model="display.optionsix" aria-label="Copy Default Language To English"></md-checkbox>
+													<input type="hidden" value="{l}{l}display.optionsix{r}{r}" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[CopyDefaultLanguage]" />
+												</li>
+											</f:alias>
+										</ul>
+									</div>
+								</div>
+								<input type="hidden" value="3" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[editing]" />
+								<input class="md-raised md-button md-ink-ripple" type="submit" style="display: grid; background-color: rgba(252, 135, 0, 0.13);" value="SAVE" />
+							</f:form>
+						</md-content>
+					</md-tab>
+					<md-tab label="Languages">
+						<md-content class="md-padding">
+							<h1 class="md-display-2">Languages</h1>
+							<f:form action="submit" enctype="multipart/form-data" method="post">
+								<div id="layoutContainer" class="fixed-box" layout="row" ng-cloak layout-wrap>
+									<div flex="45">
+                                        <div class="list-head">
+                                            <h4>Available List</h4>
+                                            <md-input-container class="md-icon-float md-block" style="margin-left:25px;">
+                                                <!-- Use floating label instead of placeholder -->
+                                                <label>Search</label>
+                                                <input type="text" class="search">
+                                            </md-input-container>
+                                        </div>
+										<div class="form-group scrollbar-dynamic">
+											<div ng-repeat="langName in languages" class="custom-chip">
+												<f:alias map="{l: '{', r: '}'}">
+													<input type="checkbox" name="selectedFruits[]" value="{l}{l}langName.LanguageId{r}{r}" ng-checked="selectedLangs.indexOf(langName.LanguageName) > -1"
+													 class="chk-btn">
+													<label md-whiteframe="2" class="checkbox-inline" ng-click="toggleLangSelection(langName)">{l}{l}langName.LanguageName{r}{r}</label>
+												</f:alias>
+											</div>
+										</div>
+									</div>
+									<div flex="5"></div>
+									<div flex="45">
+                                        <div class="list-head">
+                                            <h4>Selected List</h4>
+                                            <md-input-container class="md-icon-float md-block" style="margin-left:25px;">
+                                                <!-- Use floating label instead of placeholder -->
+                                                <label>Search</label>
+                                                <input type="text" class="search">
+                                            </md-input-container>
+                                        </div>
+										<div class="form-group-right">
+											<div ng-repeat="langName in selectedLangs" class="custom-chip">
+												<f:alias map="{l: '{', r: '}'}">
+													<input type="checkbox" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[selectedLanguages][{l}{l}langName.LanguageId{r}{r}]"
+													 value="{l}{l}langName.LanguageId{r}{r}" class="chk-btn" checked="checked" />
+													<label class="checkbox-inline" ng-click="toggleLangDeSelection(langName)">{l}{l}langName.LanguageName{r}{r}</label>
+												</f:alias>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br>
+								<input type="hidden" value="4" name="tx_snowbabel_snowbabelsnowbabel_snowbabelsettings[languages]" />
+								<input class="md-raised md-button md-ink-ripple" type="submit" style="display: grid; background-color: rgba(252, 135, 0, 0.13);" value="SAVE" />
+							</f:form>
+						</md-content>
+					</md-tab>
+				</md-tabs>
+			</md-content>
+		</div>
+	</div>
+</f:section>
