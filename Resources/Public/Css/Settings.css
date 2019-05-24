@@ -1,26 +1,126 @@
-.silk-disk {
-	background: url(../Images/Silk/disk.png) no-repeat;
+input.chk-btn {
+  display: none;
+}
+input.chk-btn + label {
+  border: 1px white;
+  background: rgba(252, 135, 0, 0.16);
+  padding: 5px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 2%;
+  display: inline-flex;
+  font-size: 12px;
+  color: #000000c2;
+}
+input.chk-btn:not(:checked) + label:hover {
+  box-shadow: 0px 1px 3px;
+}
+input.chk-btn + label:active,
+input.chk-btn:checked + label {
+  box-shadow: 0px 0px 3px inset;
+  background: rgb(252, 135, 0);
+  color: white;
 }
 
-.silk-add {
-	background: url(../Images/Silk/add.png) no-repeat;
+.form-group,
+.form-group-right {
+	display: inline-flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 440px;
+    position: relative;
 }
 
-.x-form .x-panel-header {
-	background: none;
-	border: none;
-	padding-left: 0;
-	padding-right: 0;
-	font: normal 10px verdana,arial,tahoma,helvetica,sans-serif;
-	color: #333;
-	font-weight: bold;
+.form-group-right {
+	min-width: 100%;
 }
 
-.x-list-body dl {
-	margin-bottom: 0;
-	margin-top: 0;
+.fixed-box {
+    min-height: 300px;
 }
 
-.x-list-body dt em  {
-	line-height: 1em;
+.custom-chip {
+    padding: 2px;
+}
+
+.custom-list {
+    list-style: none;
+    line-height: 39px;
+}
+
+.custom-list-right {
+    list-style: none;
+    line-height: 23px;
+    margin-top: 25px;
+}
+
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.34);
+}
+
+.list-head {
+  display: -webkit-inline-box;
+  width: -webkit-fill-available;
+}
+
+.list-head h4 {
+  line-height: 35px;
+}
+
+#spinner {
+  -webkit-animation: rotation 2s infinite linear;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+button, html, input, select, textarea {
+  font-family: Verdana,Arial,Helvetica,sans-serif !important;
+}
+
+.list-head .md-block {
+    margin-left: 25px;
+    margin-top: 13px;
+}
+
+.list-head label {
+    margin-top: -13px;
+    height: 24px;
+    margin-left: 0px !important;
+}
+
+.list-head input {
+    height: 40px;
+}
+
+.custom-list-right li {
+  height: 38px;
+}
+
+.custom-list-right li md-checkbox{
+  margin-top: 0px;
+}
+
+md-checkbox.md-checked .md-icon:after {
+  left: 7px !important;
 }
