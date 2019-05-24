@@ -1,6 +1,5 @@
 <?php
-
-namespace Snowflake\Snowbabel\Hook;
+namespace PITS\Snowbabel\Hook;
 
 /***************************************************************
  *  Copyright notice

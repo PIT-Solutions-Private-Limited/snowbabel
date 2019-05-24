@@ -1,6 +1,5 @@
 <?php
-
-namespace Snowflake\Snowbabel\Service;
+namespace PITS\Snowbabel\Service;
 
 /***************************************************************
  *  Copyright notice
@@ -28,7 +27,7 @@ namespace Snowflake\Snowbabel\Service;
 use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Snowflake\Snowbabel\Service\Database;
+use PITS\Snowbabel\Service\Database;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -36,7 +35,7 @@ use TYPO3\CMS\Core\Cache\CacheManager;
 /**
  * Class Configuration
  *
- * @package Snowflake\Snowbabel\Service
+ * @package PITS\Snowbabel\Service
  */
 class Configuration
 {
@@ -973,7 +972,7 @@ class Configuration
     {
 
         if (!is_object($this->db) && !($this->db instanceof Database)) {
-            $this->db = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Service\\Database');
+            $this->db = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Database');
         }
 
     }

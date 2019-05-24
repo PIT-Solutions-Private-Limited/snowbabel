@@ -5,7 +5,7 @@ if(!defined('TYPO3_MODE')) {
 }
 
 // Add Scheduler Configuration For Indexing
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Snowflake\\Snowbabel\\Task\\Indexing'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['PITS\\Snowbabel\\Task\\Indexing'] = array(
 	'extension' => $_EXTKEY,
 	'title' => 'Snowbabel - Indexing',
 	'description' => 'Indexes all translation on current installation',
@@ -13,7 +13,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Snowflake\\Snow
 );
 
 //commenting out temporarily as the exact behaviour of the wizard need to be analysed.
-//$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['InitOverrideLanguageKey'] = \Snowflake\Snowbabel\Updates\InitOverrideLanguageKey::class;
+//$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['InitOverrideLanguageKey'] = \PITS\Snowbabel\Updates\InitOverrideLanguageKey::class;
 
 //hook for overriding localization.js,recordlist.js and including deepl.css
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-preProcess']['snowbabel'] = 'Snowflake\\Snowbabel\\Hook\\BackendHook->executePreRenderHook';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-preProcess']['snowbabel'] = 'PITS\\Snowbabel\\Hook\\BackendHook->executePreRenderHook';

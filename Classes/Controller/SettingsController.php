@@ -1,10 +1,9 @@
 <?php
-
-namespace Snowflake\Snowbabel\Controller;
+namespace PITS\Snowbabel\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use Snowflake\Snowbabel\Service\Configuration;
+use PITS\Snowbabel\Service\Configuration;
 
 /***************************************************************
  *  Copyright notice
@@ -34,7 +33,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 /**
  * Class SettingsController
  *
- * @package Snowflake\Snowbabel\Controller
+ * @package PITS\Snowbabel\Controller
  */
 class SettingsController extends ActionController
 {
@@ -48,7 +47,7 @@ class SettingsController extends ActionController
 
     public function __construct() {
         $this->pageRenderer = GeneralUtility::makeInstance('TYPO3\CMS\Core\Page\PageRenderer');
-        $this->confObj      = GeneralUtility::makeInstance('Snowflake\Snowbabel\Service\Configuration');
+        $this->confObj      = GeneralUtility::makeInstance('PITS\Snowbabel\Service\Configuration');
     }
 
     /**

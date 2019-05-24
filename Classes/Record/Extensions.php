@@ -1,6 +1,5 @@
 <?php
-
-namespace Snowflake\Snowbabel\Record;
+namespace PITS\Snowbabel\Record;
 
 /***************************************************************
  *  Copyright notice
@@ -28,17 +27,17 @@ namespace Snowflake\Snowbabel\Record;
 /**
  * Class Extensions
  *
- * @package Snowflake\Snowbabel\Record
+ * @package PITS\Snowbabel\Record
  */
 class Extensions
 {
     /**
-     * @var \Snowflake\Snowbabel\Service\Configuration
+     * @var \PITS\Snowbabel\Service\Configuration
      */
     protected $confObj;
 
     /**
-     * @var \Snowflake\Snowbabel\Service\Database
+     * @var \PITS\Snowbabel\Service\Database
      */
     protected $Db;
 

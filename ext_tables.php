@@ -8,7 +8,7 @@ call_user_func(
         if (TYPO3_MODE === 'BE') {
 
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-                'Snowflake.Snowbabel',
+                'PITS.Snowbabel',
                 'snowbabel',
                 '',
                 '',
@@ -20,7 +20,7 @@ call_user_func(
             );
 
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-                'Snowflake.Snowbabel',
+                'PITS.Snowbabel',
                 'snowbabel', // Make module a submodule of 'user'
                 'translation', // Submodule key
                 '', // Position
@@ -36,7 +36,7 @@ call_user_func(
             );
 
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-                'Snowflake.Snowbabel',
+                'PITS.Snowbabel',
                 'snowbabel', // Make module a submodule of 'user'
                 'settings', // Submodule key
                 '', // Position
@@ -70,7 +70,7 @@ call_user_func(
                 'config' => [
                     'type' => 'select',
                     'renderType' => 'selectMultipleSideBySide',
-                    'itemsProcFunc' => 'Snowflake\Snowbabel\Hook\Tca->getExtensions',
+                    'itemsProcFunc' => 'PITS\Snowbabel\Hook\Tca->getExtensions',
                     'size' => 10,
                     'maxitems' => 9999,
                     'default' => ''
@@ -82,7 +82,7 @@ call_user_func(
                 'config' => [
                     'type' => 'select',
                     'renderType' => 'selectMultipleSideBySide',
-                    'itemsProcFunc' => 'Snowflake\Snowbabel\Hook\Tca->getLanguages',
+                    'itemsProcFunc' => 'PITS\Snowbabel\Hook\Tca->getLanguages',
                     'size' => 10,
                     'maxitems' => 9999,
                     'default' => ''

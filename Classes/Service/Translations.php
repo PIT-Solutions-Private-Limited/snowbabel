@@ -1,6 +1,5 @@
 <?php
-
-namespace Snowflake\Snowbabel\Service;
+namespace PITS\Snowbabel\Service;
 
 /***************************************************************
  *  Copyright notice
@@ -32,7 +31,7 @@ use TYPO3\CMS\Core\Core\Environment;
 /**
  * Class Translations
  *
- * @package Snowflake\Snowbabel\Service
+ * @package PITS\Snowbabel\Service
  */
 class Translations
 {

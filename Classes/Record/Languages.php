@@ -1,6 +1,5 @@
 <?php
-
-namespace Snowflake\Snowbabel\Record;
+namespace PITS\Snowbabel\Record;
 
 /***************************************************************
  *  Copyright notice
@@ -25,12 +24,12 @@ namespace Snowflake\Snowbabel\Record;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Snowflake\Snowbabel\Service\Configuration;
+use PITS\Snowbabel\Service\Configuration;
 
 /**
  * Class Languages
  *
- * @package Snowflake\Snowbabel\Record
+ * @package PITS\Snowbabel\Record
  */
 class Languages
 {

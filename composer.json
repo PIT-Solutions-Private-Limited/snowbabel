@@ -11,12 +11,12 @@
     ],
     "autoload": {
       "psr-4": {
-        "Snowflake\\Snowbabel\\": "Classes"
+        "PITS\\Snowbabel\\": "Classes"
       }
     },
     "autoload-dev": {
         "psr-4": {
-            "Snowflake\\Snowbabel\\": "Tests/"
+            "PITS\\Snowbabel\\": "Tests/"
         }
     },
     "config": {
@@ -30,12 +30,6 @@
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
             "web-dir": ".build/web"
         }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "mkdir -p .build/web/typo3conf/ext/",
-            "[ -L .build/web/typo3conf/ext/snowbabel ] || ln -snvf ../../../../. .build/web/typo3conf/ext/snowbabel"
-        ]
     },
     "require": {
         "php": "^7.2",

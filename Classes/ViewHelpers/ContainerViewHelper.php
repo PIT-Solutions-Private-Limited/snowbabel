@@ -1,5 +1,5 @@
 <?php
-namespace Snowflake\Snowbabel\ViewHelpers;
+namespace PITS\Snowbabel\ViewHelpers;
 
 /***************************************************************
  *  Copyright notice
@@ -30,7 +30,7 @@ use \TYPO3\CMS\Core\Page\PageRenderer;
 /**
  * Class ContainerViewHelper
  *
- * @package Snowflake\Snowbabel\ViewHelpers
+ * @package PITS\Snowbabel\ViewHelpers
  */
 class ContainerViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper {
 

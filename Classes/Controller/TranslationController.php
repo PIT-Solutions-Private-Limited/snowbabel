@@ -1,6 +1,5 @@
 <?php
-
-namespace Snowflake\Snowbabel\Controller;
+namespace PITS\Snowbabel\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -32,7 +31,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 /**
  * Class TranslationController
  *
- * @package Snowflake\Snowbabel\Controller
+ * @package PITS\Snowbabel\Controller
  */
 class TranslationController extends ActionController
 {

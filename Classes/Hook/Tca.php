@@ -1,6 +1,5 @@
 <?php
-
-namespace Snowflake\Snowbabel\Hook;
+namespace PITS\Snowbabel\Hook;
 
 /***************************************************************
  *  Copyright notice
@@ -25,14 +24,14 @@ namespace Snowflake\Snowbabel\Hook;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Snowflake\Snowbabel\Record\Extensions;
-use Snowflake\Snowbabel\Service\Configuration;
+use PITS\Snowbabel\Record\Extensions;
+use PITS\Snowbabel\Service\Configuration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class Tca
  *
- * @package Snowflake\Snowbabel\Hook
+ * @package PITS\Snowbabel\Hook
  */
 class Tca
 {
@@ -120,7 +119,7 @@ class Tca
     {
 
         if (!is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
-            $this->confObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Service\\Configuration', $extjsParams);
+            $this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration', $extjsParams);
         }
 
     }
@@ -132,7 +131,7 @@ class Tca
     private function getExtensionsObject()
     {
         if (!is_object($this->extObj) && !($this->extObj instanceof Extensions)) {
-            $this->extObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Record\Extensions', $this->confObj);
+            $this->extObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\Extensions', $this->confObj);
         }
     }
 }

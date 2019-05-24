@@ -1,5 +1,5 @@
 <?php
-namespace Snowflake\Snowbabel\Task;
+namespace PITS\Snowbabel\Task;
 
 /***************************************************************
  *  Copyright notice
@@ -24,16 +24,16 @@ namespace Snowflake\Snowbabel\Task;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Snowflake\Snowbabel\Service\Configuration;
-use Snowflake\Snowbabel\Service\Database;
-use Snowflake\Snowbabel\Service\Translations;
+use PITS\Snowbabel\Service\Configuration;
+use PITS\Snowbabel\Service\Database;
+use PITS\Snowbabel\Service\Translations;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
  * Class Indexing
  *
- * @package Snowflake\Snowbabel\Task
+ * @package PITS\Snowbabel\Task
  */
 class Indexing extends AbstractTask {
 
@@ -182,7 +182,7 @@ class Indexing extends AbstractTask {
 	private function initConfiguration() {
 
 		if(!is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
-			$this->confObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Service\\Configuration', array());
+			$this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration', array());
 
 			$this->Db = $this->confObj->getDb();
 		}
@@ -195,7 +195,7 @@ class Indexing extends AbstractTask {
 	 */
 	private function initSystemTranslations() {
 		if(!is_object($this->SystemTranslation) && !($this->SystemTranslation instanceof Translations)) {
-			$this->SystemTranslation = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Service\\Translations');
+			$this->SystemTranslation = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Translations');
 			$this->SystemTranslation->init($this->confObj);
 		}
 	}

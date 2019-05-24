@@ -1,5 +1,5 @@
 <?php
-namespace Snowflake\Snowbabel\Updates;
+namespace PITS\Snowbabel\Updates;
 
 /*
  *  Copyright notice
@@ -34,7 +34,7 @@ use TYPO3\CMS\Install\Updates\AbstractUpdate;
 /**
  * Class InitOverrideLanguageKey
  *
- * @package Snowflake\Snowbabel\Updates
+ * @package PITS\Snowbabel\Updates
  */
 class InitOverrideLanguageKey extends AbstractUpdate {
     /**

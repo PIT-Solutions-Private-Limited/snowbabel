@@ -1,6 +1,5 @@
 <?php
-
-namespace Snowflake\Snowbabel\Record;
+namespace PITS\Snowbabel\Record;
 
 /***************************************************************
  *  Copyright notice
@@ -24,16 +23,16 @@ namespace Snowflake\Snowbabel\Record;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Snowflake\Snowbabel\Service\Configuration;
-use Snowflake\Snowbabel\Service\Database;
-use Snowflake\Snowbabel\Service\Translations;
+use PITS\Snowbabel\Service\Configuration;
+use PITS\Snowbabel\Service\Database;
+use PITS\Snowbabel\Service\Translations;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Class Labels
  *
- * @package Snowflake\Snowbabel\Record
+ * @package PITS\Snowbabel\Record
  */
 class Labels {
 
@@ -394,7 +393,7 @@ class Labels {
     private function getLanguageObject()
     {
         if (!is_object($this->langObj) && !($this->langObj instanceof Languages)) {
-            $this->langObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Record\\Languages', $this->confObj);
+            $this->langObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Languages', $this->confObj);
         }
     }
 
@@ -405,7 +404,7 @@ class Labels {
     private function initSystemTranslations()
     {
         if (!is_object($this->SystemTranslation) && !($this->SystemTranslation instanceof Translations)) {
-            $this->SystemTranslation = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Service\\Translations');
+            $this->SystemTranslation = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Translations');
             $this->SystemTranslation->init($this->confObj);
         }
     }

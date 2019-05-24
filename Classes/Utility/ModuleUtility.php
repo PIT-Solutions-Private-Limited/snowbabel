@@ -1,5 +1,5 @@
 <?php
-namespace Snowflake\Snowbabel\Utility;
+namespace PITS\Snowbabel\Utility;
 
 /***
  *
@@ -17,8 +17,8 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Snowflake\Snowbabel\Service\Configuration;
-use Snowflake\Snowbabel\Service\Translations;
+use PITS\Snowbabel\Service\Configuration;
+use PITS\Snowbabel\Service\Translations;
 use TYPO3\CMS\Core\Http\AjaxRequestHandler;
 
 class ModuleUtility
@@ -401,7 +401,7 @@ class ModuleUtility
      */
     private function getConfigurationObject() {
         if(!is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
-            $this->confObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Service\\Configuration');
+            $this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration');
         }
     }
 
@@ -411,7 +411,7 @@ class ModuleUtility
      */
     private function getSystemTranslationObject() {
         if(!is_object($this->systemTranslationObj) && !($this->systemTranslationObj instanceof Translations)) {
-            $this->systemTranslationObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Service\\Translations');
+            $this->systemTranslationObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Translations');
         }
     }
 
@@ -421,7 +421,7 @@ class ModuleUtility
      */
     private function getExtensionsObject() {
         if(!is_object($this->extObj) && !($this->extObj instanceof Extensions)) {
-            $this->extObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Record\\Extensions', $this->confObj);
+            $this->extObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Extensions', $this->confObj);
         }
     }
 
@@ -431,7 +431,7 @@ class ModuleUtility
      */
     private function getLanguageObject() {
         if(!is_object($this->langObj) && !($this->langObj instanceof Languages)) {
-            $this->langObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Record\\Languages', $this->confObj);
+            $this->langObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Languages', $this->confObj);
         }
     }
 
@@ -442,7 +442,7 @@ class ModuleUtility
      */
     private function getColumnObject() {
         if(!is_object($this->colObj) && !($this->colObj instanceof Columns)) {
-            $this->colObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Record\\Columns', $this->confObj);
+            $this->colObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Columns', $this->confObj);
         }
     }
 
@@ -452,7 +452,7 @@ class ModuleUtility
      */
     private function getLabelsObject() {
         if(!is_object($this->labelsObj) && !($this->labelsObj instanceof Labels)) {
-            $this->labelsObj = GeneralUtility::makeInstance('Snowflake\\Snowbabel\\Record\\Labels', $this->confObj);
+            $this->labelsObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Labels', $this->confObj);
         }
     }
 
