@@ -1,6 +1,6 @@
 # Snowbabel TYPO3 CMS Extension
 
-This repository is forked / imported from parent repository [snowflake](https://github.com/snowflakech/snowbabel). Last import was taken on **23rd May 2019**. From **24th May 2019** onwards we ([PIT SOLUTIONS](http://www.pitsolutions.ch)) will contribute our changes and works to this repository. We already done major release 6.0.0 version with removing the dependency of EXTJS from TYPO3 Backend Module and used Angular JS as an alternative. **Version 6.0.0** also support **TYPO3 8 LTS - 9 LTS**.
+This repository is forked / imported from parent repository [snowflake](https://github.com/snowflakech/snowbabel). Last import was taken on **23rd May 2019**. From **24th May 2019** onwards we ([PIT SOLUTIONS](http://www.pitsolutions.ch)) will contribute our changes and works to this repository. We already done major release 6.0.0 version by removing the dependency of EXTJS from TYPO3 Backend Module and used Angular JS as an alternative. **Version 6.0.0** also support **TYPO3 8.7 LTS - 9.5 LTS**.
 
 snowbabel provides an easy and modern way for Extension translation. Target groups are Content Managers and non-technical backend users.
 
@@ -64,7 +64,7 @@ A collection (comparison) of the main functionality of this product or of the di
 Requirements
 -------------
 
- - TYPO3 6.2 LTS and above
+ - TYPO3 8.7 LTS and above
  - static info tables
 
 Installation
