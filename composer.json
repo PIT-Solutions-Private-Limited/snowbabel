@@ -5,9 +5,6 @@
     "version": "6.0.0",
     "homepage": "http://pitsolutions.ch/",
     "license": ["GPL-2.0-or-later"],
-    "require": {
-      "typo3/cms-core": "^8.7.13|| ^9.5.0"
-    },  
     "keywords": [
       "TYPO3",
       "extension"
@@ -17,8 +14,40 @@
         "Snowflake\\Snowbabel\\": "Classes"
       }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Snowflake\\Snowbabel\\": "Tests/"
+        }
+    },
+    "config": {
+        "bin-dir": ".build/bin",
+        "discard-changes": true,
+        "optimize-autoloader": true,
+        "vendor-dir": ".build/vendor"
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".build/web"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "mkdir -p .build/web/typo3conf/ext/",
+            "[ -L .build/web/typo3conf/ext/snowbabel ] || ln -snvf ../../../../. .build/web/typo3conf/ext/snowbabel"
+        ]
+    },
+    "require": {
+        "php": "^7.2",
+        "typo3/cms-core": "^8.7.13|| ^9.5.0",
+        "sjbr/static-info-tables": "^6.7.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14.0",
+        "roave/security-advisories": "dev-master"
+    },
     "replace": {
       "snowbabel": "self.version",
       "typo3-ter/snowbabel": "self.version"
-    }
+    },
 }
