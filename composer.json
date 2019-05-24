@@ -49,5 +49,5 @@
     "replace": {
       "snowbabel": "self.version",
       "typo3-ter/snowbabel": "self.version"
-    },
+    }
 }
