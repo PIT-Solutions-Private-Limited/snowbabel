@@ -19,5 +19,5 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Daniel Alder, Ebin C Mathew, Chinnu L, HOJA MUSTAFFA ABDUL LATHEEF',
     'author_email' => 'contact@pitsolutions.com',
     'author_company' => 'PIT Solutions Pvt Ltd',
-    'version' => '6.0.0',
+    'version' => '6.1.0',
 ];
