@@ -1,6 +1,24 @@
 {
-    "name": "Snowflake/Snowbabel",
-    "description": "Translation Extension",
+    "name": "pits/snowbabel",
+    "description": "Translation Extension by Snowflake.ch",
     "type": "typo3-cms-extension",
-    "version": "4.3.0"
+    "version": "6.0.0",
+    "homepage": "http://pitsolutions.ch/",
+    "license": ["GPL-2.0-or-later"],
+    "require": {
+      "typo3/cms-core": "^8.7.13|| ^9.5.0"
+    },  
+    "keywords": [
+      "TYPO3",
+      "extension"
+    ],
+    "autoload": {
+      "psr-4": {
+        "Snowflake\\Snowbabel\\": "Classes"
+      }
+    },
+    "replace": {
+      "snowbabel": "self.version",
+      "typo3-ter/snowbabel": "self.version"
+    }
 }
