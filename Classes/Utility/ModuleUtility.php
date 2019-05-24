@@ -8,7 +8,7 @@ namespace PITS\Snowbabel\Utility;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 Anu Bhuvanendran Nair <anu.bn@pitsolutions.com>, PIT Solutions Pvt. Ltd.
+ *  (c) 2018 Ebin C Mathew | Chinnu L | HOJA MUSTAFFA ABDUL LATHEEF, PIT Solutions Pvt. Ltd.
  *
  */
 

@@ -4,7 +4,7 @@ namespace PITS\Snowbabel\Hook;
 /*
  *  Copyright notice
  *
- *  (c) 2018 Anu Bhuvanendran Nair <anu.bn@pitsolutions.com>, PIT Solutions
+ *  (c) 2018 Ebin C Mathew | Chinnu L | HOJA MUSTAFFA ABDUL LATHEEF, PIT Solutions
  *
  *  You may not remove or change the name of the author above. See:
  *  http://www.gnu.org/licenses/gpl-faq.html#IWantCredit

@@ -39,10 +39,10 @@ Snowbabel
 		2016
 
 	:Author:
-		Anu Bhuvanendran Nair, Ricky Mathew, Daniel Alder
+		Daniel Alder, Ebin C Mathew, Chinnu L, HOJA MUSTAFFA ABDUL LATHEEF
 
 	:Email:
-		anu.bn@pitsolutions.com, ricky.mk@pitsolutions.com
+		contact@pitsolutions.com
 
 	:License:
 		This document is published under the Open Content License

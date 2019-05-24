@@ -12,7 +12,6 @@ conf.py:
   - - Index
     - pits_googlecse.tex
     - Google CSE
-    - Anu Bhuvanendran Nair
     - manual
   latex_elements:
     papersize: a4paper
