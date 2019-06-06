@@ -1,11 +1,13 @@
 <?php
+
 namespace PITS\Snowbabel\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-/*
+
+/***************************************************************
  *  Copyright notice
  *
- *  (c) 2011 Daniel Alder <info@snowflake.ch>
+ *  (c) 2011 Daniel Alder <info@PITS.ch>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,23 +25,26 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- */
+ ***************************************************************/
 
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
- * Class TranslationController.
+ * Class TranslationController
+ *
+ * @package PITS\Snowbabel\Controller
  */
 class TranslationController extends ActionController
 {
+
     public function indexAction(): void
     {
         $pageRenderer = GeneralUtility::makeInstance('TYPO3\CMS\Core\Page\PageRenderer');
         $compatibility = 1;
         $snowbabel_style = 'Translation.css';
-        $this->view->assignMultiple([
+        $this->view->assignMultiple(array(
             'compatibility' => $compatibility,
-            'snowbabel_style' => $snowbabel_style,
-        ]);
+            'snowbabel_style' => $snowbabel_style, 
+        ));
     }
 }

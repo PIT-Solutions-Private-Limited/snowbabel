@@ -1,10 +1,11 @@
 <?php
+
 namespace PITS\Snowbabel\Hook;
 
-/*
+/***************************************************************
  *  Copyright notice
  *
- *  (c) 2011 Daniel Alder <info@snowflake.ch>
+ *  (c) 2011 Daniel Alder <info@PITS.ch>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,37 +23,38 @@ namespace PITS\Snowbabel\Hook;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- */
+ ***************************************************************/
 
 use PITS\Snowbabel\Record\Extensions;
 use PITS\Snowbabel\Service\Configuration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class Tca.
+ * Class Tca
+ *
+ * @package PITS\Snowbabel\Hook
  */
 class Tca
 {
     /**
-     * @var Configuration
+     * @var    Configuration
      */
     protected $confObj;
 
     /**
-     * @var Extensions
+     * @var    Extensions
      */
     protected $extObj;
 
     /**
      * @param  $PA
      * @param  $fobj
-     *
      * @return void
      */
     public function getExtensions($PA, $fobj)
     {
         $extjsParams = null;
-        $tcaExtensions = [];
+        $tcaExtensions = array();
 
         // get configuration object
         $this->getConfigurationObject($extjsParams);
@@ -63,12 +65,12 @@ class Tca
         // get all extensions for this user
         $Extensions = $this->extObj->getExtensions();
 
-        if (\is_array($Extensions)) {
+        if (is_array($Extensions)) {
             foreach ($Extensions as $Extension) {
-                $Value = [
+                $Value = array(
                     '0' => $Extension['ExtensionKey'],    // label
-                    '1' => $Extension['ExtensionKey'],        // value
-                ];
+                    '1' => $Extension['ExtensionKey']        // value
+                );
 
                 array_push($tcaExtensions, $Value);
             }
@@ -77,16 +79,17 @@ class Tca
         $PA['items'] = $tcaExtensions;
     }
 
+
     /**
      * @param  $PA
      * @param  $fobj
-     *
      * @return void
      */
     public function getLanguages($PA, $fobj)
     {
+
         $extjsParams = null;
-        $tcaLanguages = [];
+        $tcaLanguages = array();
 
         // get configuration object
         $this->getConfigurationObject($extjsParams);
@@ -94,33 +97,41 @@ class Tca
         // get available languages
         $Languages = $this->confObj->getApplicationConfiguration('AvailableLanguages');
 
-        if (\is_array($Languages)) {
+        if (is_array($Languages)) {
             foreach ($Languages as $Language) {
-                $Value = [
+                $Value = array(
                     '0' => $Language['LanguageName'],        // label
-                    '1' => $Language['LanguageKey'],            // value
-                ];
+                    '1' => $Language['LanguageKey']            // value
+                );
 
                 array_push($tcaLanguages, $Value);
             }
         }
 
+
         $PA['items'] = $tcaLanguages;
     }
 
+
     /**
-     * @param mixed $extjsParams
+     *
      */
     private function getConfigurationObject($extjsParams)
     {
-        if (!\is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
+
+        if (!is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
             $this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration', $extjsParams);
         }
+
     }
 
+
+    /**
+     *
+     */
     private function getExtensionsObject()
     {
-        if (!\is_object($this->extObj) && !($this->extObj instanceof Extensions)) {
+        if (!is_object($this->extObj) && !($this->extObj instanceof Extensions)) {
             $this->extObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\Extensions', $this->confObj);
         }
     }

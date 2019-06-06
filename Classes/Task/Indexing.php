@@ -1,10 +1,10 @@
 <?php
 namespace PITS\Snowbabel\Task;
 
-/*
+/***************************************************************
  *  Copyright notice
  *
- *  (c) 2011 Daniel Alder <info@snowflake.ch>
+ *  (c) 2011 Daniel Alder <info@PITS.ch>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,7 +22,7 @@ namespace PITS\Snowbabel\Task;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- */
+ ***************************************************************/
 
 use PITS\Snowbabel\Service\Configuration;
 use PITS\Snowbabel\Service\Database;
@@ -31,153 +31,173 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
- * Class Indexing.
+ * Class Indexing
+ *
+ * @package PITS\Snowbabel\Task
  */
-class Indexing extends AbstractTask
-{
-    /**
-     * @var Configuration
-     */
+class Indexing extends AbstractTask {
+
+
+	/**
+	 * @var Configuration
+	 */
     protected $confObj;
 
-    /**
-     * @var Translations
-     */
+
+	/**
+	 * @var Translations
+	 */
     protected $SystemTranslation;
 
-    /**
-     * @var Database
-     */
+
+	/**
+	 * @var Database
+	 */
     protected $Db;
 
-    /**
-     * @var number
-     */
+
+	/**
+	 * @var number
+	 */
     protected $CurrentTableId;
 
-    /**
-     * @return bool
-     */
-    public function execute()
-    {
-        $this->init();
 
-        // Get Current TableId & Negate
-        $this->CurrentTableId = $this->Db->getCurrentTableId() ? 0 : 1;
+	/**
+	 * @return void
+	 */
+	private function init() {
 
-        // Indexing Extensions
-        $this->indexingExtensions();
+		// Init Configuration
+		$this->initConfiguration();
 
-        // Indexing Files
-        $this->indexingFiles();
+		// Init System Translations
+		$this->initSystemTranslations();
 
-        // Indexing Labels
-        $this->indexingLabels();
+	}
 
-        // Indexing Translations
-        $this->indexingTranslations();
 
-        // Switch CurrentTableId
-        $this->Db->setCurrentTableId($this->CurrentTableId);
+	/**
+	 * @return bool
+	 */
+	public function execute() {
 
-        // Add Scheduler Check To Localconf & Mark Configuration Changes As 'OK'
-        $this->confObj->setSchedulerCheckAndChangedConfiguration();
+		$this->init();
 
-        return true;
-    }
+		// Get Current TableId & Negate
+		$this->CurrentTableId = $this->Db->getCurrentTableId() ? 0 : 1;
 
-    /**
-     * @return void
-     */
-    private function init()
-    {
-        // Init Configuration
-        $this->initConfiguration();
+		// Indexing Extensions
+		$this->indexingExtensions();
 
-        // Init System Translations
-        $this->initSystemTranslations();
-    }
+		// Indexing Files
+		$this->indexingFiles();
 
-    /**
-     * @return void
-     */
-    private function indexingExtensions()
-    {
-        // Get Extensions From Typo3
-        $Extensions = $this->SystemTranslation->getExtensions();
+		// Indexing Labels
+		$this->indexingLabels();
 
-        // Write Extensions To Database
-        $this->Db->setExtensions($Extensions, $this->CurrentTableId);
-    }
+		// Indexing Translations
+		$this->indexingTranslations();
 
-    /**
-     * @return void
-     */
-    private function indexingFiles()
-    {
-        // Get Extensions From Database
-        $Extensions = $this->Db->getExtensions($this->CurrentTableId);
+		// Switch CurrentTableId
+		$this->Db->setCurrentTableId($this->CurrentTableId);
 
-        // Get Files From Typo3
-        $Files = $this->SystemTranslation->getFiles($Extensions);
+		// Add Scheduler Check To Localconf & Mark Configuration Changes As 'OK'
+		$this->confObj->setSchedulerCheckAndChangedConfiguration();
 
-        // Write Extensions To Database
-        $this->Db->setFiles($Files, $this->CurrentTableId);
-    }
+		return true;
+	}
 
-    /**
-     * @return void
-     */
-    private function indexingLabels()
-    {
-        // Get Files From Database
-        $Files = $this->Db->getFiles($this->CurrentTableId);
 
-        // Get Labels From Typo
-        $Labels = $this->SystemTranslation->getLabels($Files);
+	/**
+	 * @return void
+	 */
+	private function indexingExtensions() {
 
-        // Write Labels To Database
-        $this->Db->setLabels($Labels, $this->CurrentTableId);
-    }
+		// Get Extensions From Typo3
+		$Extensions = $this->SystemTranslation->getExtensions();
 
-    /**
-     * @return void
-     */
-    private function indexingTranslations()
-    {
-        // Important! Needed For Caching in getLabels
-        $Conf['OrderBy'] = 'FileId';
+		// Write Extensions To Database
+		$this->Db->setExtensions($Extensions, $this->CurrentTableId);
 
-        // Get Labels From Database
-        $Labels = $this->Db->getLabels($this->CurrentTableId, $Conf);
+	}
 
-        // Get Translations From Typo
-        $Translations = $this->SystemTranslation->getTranslations($Labels);
 
-        // Write Translations To Database
-        $this->Db->setTranslations($Translations, $this->CurrentTableId);
-    }
+	/**
+	 * @return void
+	 */
+	private function indexingFiles() {
 
-    /**
-     * @return void
-     */
-    private function initConfiguration()
-    {
-        if (!\is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
-            $this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration', []);
+		// Get Extensions From Database
+		$Extensions = $this->Db->getExtensions($this->CurrentTableId);
 
-            $this->Db = $this->confObj->getDb();
-        }
-    }
+		// Get Files From Typo3
+		$Files = $this->SystemTranslation->getFiles($Extensions);
 
-    /**
-     * @return void
-     */
-    private function initSystemTranslations()
-    {
-        if (!\is_object($this->SystemTranslation) && !($this->SystemTranslation instanceof Translations)) {
-            $this->SystemTranslation = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Translations');
-            $this->SystemTranslation->init($this->confObj);
-        }
-    }
+		// Write Extensions To Database
+		$this->Db->setFiles($Files, $this->CurrentTableId);
+
+	}
+
+
+	/**
+	 * @return void
+	 */
+	private function indexingLabels() {
+
+		// Get Files From Database
+		$Files = $this->Db->getFiles($this->CurrentTableId);
+
+		// Get Labels From Typo
+		$Labels = $this->SystemTranslation->getLabels($Files);
+
+		// Write Labels To Database
+		$this->Db->setLabels($Labels, $this->CurrentTableId);
+
+	}
+
+
+	/**
+	 * @return void
+	 */
+	private function indexingTranslations() {
+
+		// Important! Needed For Caching in getLabels
+		$Conf['OrderBy'] = 'FileId';
+       
+		// Get Labels From Database
+		$Labels = $this->Db->getLabels($this->CurrentTableId, $Conf);
+       
+		// Get Translations From Typo
+		$Translations = $this->SystemTranslation->getTranslations($Labels);
+       
+		// Write Translations To Database
+		$this->Db->setTranslations($Translations, $this->CurrentTableId);
+
+	}
+
+
+	/**
+	 * @return void
+	 */
+	private function initConfiguration() {
+
+		if(!is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
+			$this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration', array());
+
+			$this->Db = $this->confObj->getDb();
+		}
+
+	}
+
+
+	/**
+	 * @return void
+	 */
+	private function initSystemTranslations() {
+		if(!is_object($this->SystemTranslation) && !($this->SystemTranslation instanceof Translations)) {
+			$this->SystemTranslation = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Translations');
+			$this->SystemTranslation->init($this->confObj);
+		}
+	}
+
 }
