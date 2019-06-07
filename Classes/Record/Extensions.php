@@ -5,7 +5,7 @@ namespace PITS\Snowbabel\Record;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011 Daniel Alder <info@PITS.ch>
+ *  (c) 2011 Daniel Alder <info@snowflake.ch>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -47,40 +47,19 @@ class Extensions
      * @var
      */
     protected $CurrentTableId;
-
-    /**
-     *
-     */
+    
     protected $ShowLocalExtensions;
-
-    /**
-     *
-     */
+    
     protected $ShowSystemExtensions;
-
-    /**
-     *
-     */
+    
     protected $ShowGlobalExtensions;
-
-    /**
-     *
-     */
+    
     protected $ApprovedExtensions;
-
-    /**
-     *
-     */
+    
     protected $ShowOnlyLoadedExtensions;
-
-    /**
-     *
-     */
+    
     protected $IsAdmin;
-
-    /**
-     *
-     */
+    
     protected $PermittedExtensions;
 
     /**

@@ -4,7 +4,7 @@ namespace PITS\Snowbabel\Task;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011 Daniel Alder <info@PITS.ch>
+ *  (c) 2011 Daniel Alder <info@snowflake.ch>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -35,7 +35,8 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  *
  * @package PITS\Snowbabel\Task
  */
-class Indexing extends AbstractTask {
+class Indexing extends AbstractTask
+{
 
 
 	/**
@@ -65,7 +66,8 @@ class Indexing extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function init() {
+	private function init()
+	{
 
 		// Init Configuration
 		$this->initConfiguration();
@@ -79,7 +81,8 @@ class Indexing extends AbstractTask {
 	/**
 	 * @return bool
 	 */
-	public function execute() {
+	public function execute()
+	{
 
 		$this->init();
 
@@ -111,7 +114,8 @@ class Indexing extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function indexingExtensions() {
+	private function indexingExtensions()
+	{
 
 		// Get Extensions From Typo3
 		$Extensions = $this->SystemTranslation->getExtensions();
@@ -125,7 +129,8 @@ class Indexing extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function indexingFiles() {
+	private function indexingFiles()
+	{
 
 		// Get Extensions From Database
 		$Extensions = $this->Db->getExtensions($this->CurrentTableId);
@@ -142,7 +147,8 @@ class Indexing extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function indexingLabels() {
+	private function indexingLabels()
+	{
 
 		// Get Files From Database
 		$Files = $this->Db->getFiles($this->CurrentTableId);
@@ -159,7 +165,8 @@ class Indexing extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function indexingTranslations() {
+	private function indexingTranslations()
+	{
 
 		// Important! Needed For Caching in getLabels
 		$Conf['OrderBy'] = 'FileId';
@@ -179,7 +186,8 @@ class Indexing extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function initConfiguration() {
+	private function initConfiguration()
+	{
 
 		if(!is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
 			$this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration', array());
@@ -193,7 +201,8 @@ class Indexing extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function initSystemTranslations() {
+	private function initSystemTranslations()
+	{
 		if(!is_object($this->SystemTranslation) && !($this->SystemTranslation instanceof Translations)) {
 			$this->SystemTranslation = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Translations');
 			$this->SystemTranslation->init($this->confObj);

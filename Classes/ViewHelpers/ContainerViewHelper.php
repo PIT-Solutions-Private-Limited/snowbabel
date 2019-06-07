@@ -32,7 +32,8 @@ use \TYPO3\CMS\Core\Page\PageRenderer;
  *
  * @package PITS\Snowbabel\ViewHelpers
  */
-class ContainerViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper {
+class ContainerViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper
+{
 
 
 	/**
@@ -53,7 +54,8 @@ class ContainerViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBacken
 	 * @see \TYPO3\CMS\Backend\Template\DocumentTemplate
 	 * @see \TYPO3\CMS\Core\Page\PageRenderer
 	 */
-	public function render($pageTitle = '', $loadExtJs = false, $loadExtJsTheme = true, $extJsAdapter = '', $enableExtJsDebug = false, $loadJQuery = false, $includeCssFiles = null, $includeJsFiles = null, $addJsInlineFile = null, $addJsInlineLabels = null, $includeCsh = true) {
+	public function render($pageTitle = '', $loadExtJs = false, $loadExtJsTheme = true, $extJsAdapter = '', $enableExtJsDebug = false, $loadJQuery = false, $includeCssFiles = null, $includeJsFiles = null, $addJsInlineFile = null, $addJsInlineLabels = null, $includeCsh = true)
+	{
 
 		$doc = $this->getDocInstance();
 		$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);

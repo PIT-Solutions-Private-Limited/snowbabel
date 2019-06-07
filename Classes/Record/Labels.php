@@ -5,7 +5,7 @@ namespace PITS\Snowbabel\Record;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011 Daniel Alder <info@PITS.ch>
+ *  (c) 2011 Daniel Alder <info@snowflake.ch>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -35,7 +35,8 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  *
  * @package PITS\Snowbabel\Record
  */
-class Labels {
+class Labels
+{
 
 
     /**
@@ -73,70 +74,26 @@ class Labels {
      */
     protected $Languages;
 
-
-    /**
-     *
-     */
     protected $ColumnsConfiguration;
 
-
-    /**
-     *
-     */
     protected $ShowColumnLabel;
 
-
-    /**
-     *
-     */
     protected $ShowColumnDefault;
 
-
-    /**
-     *
-     */
     protected $IsAdmin;
 
-
-    /**
-     *
-     */
     protected $PermittedExtensions;
 
-
-    /**
-     *
-     */
     protected $Labels;
 
-
-    /**
-     *
-     */
     protected $SearchMode;
 
-
-    /**
-     *
-     */
     protected $SearchString;
 
-
-    /**
-     *
-     */
     protected $ExtensionId;
 
-
-    /**
-     *
-     */
     protected $ListViewStart;
 
-
-    /**
-     *
-     */
     protected $ListViewLimit;
 
 

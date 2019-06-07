@@ -36,7 +36,8 @@ use TYPO3\CMS\Install\Updates\AbstractUpdate;
  *
  * @package PITS\Snowbabel\Updates
  */
-class InitOverrideLanguageKey extends AbstractUpdate {
+class InitOverrideLanguageKey extends AbstractUpdate
+{
     /**
      * @var string
      */
@@ -96,7 +97,8 @@ class InitOverrideLanguageKey extends AbstractUpdate {
      * @throws \InvalidArgumentException
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function performUpdate(array &$dbQueries, &$customMessage) {
+    public function performUpdate(array &$dbQueries, &$customMessage)
+    {
         $languages = $this->listLanguagesToUpgrade();
         $multipleLanguages = [];
         foreach ($languages as $lang) {
@@ -123,7 +125,8 @@ class InitOverrideLanguageKey extends AbstractUpdate {
         }
     }
 
-    protected function listLanguagesToUpgrade() {
+    protected function listLanguagesToUpgrade()
+    {
         // list lg_iso_2 that are used in multiple languages
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('static_languages');
         $rows = $queryBuilder->select('lg_iso_2')

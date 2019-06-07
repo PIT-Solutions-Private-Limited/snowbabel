@@ -9,7 +9,7 @@ use PITS\Snowbabel\Service\Configuration;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011 Daniel Alder <info@PITS.ch>
+ *  (c) 2011 Daniel Alder <info@snowflake.ch>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -46,7 +46,8 @@ class SettingsController extends ActionController
      */
     private $confObj;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->pageRenderer = GeneralUtility::makeInstance('TYPO3\CMS\Core\Page\PageRenderer');
         $this->confObj      = GeneralUtility::makeInstance('PITS\Snowbabel\Service\Configuration');
     }

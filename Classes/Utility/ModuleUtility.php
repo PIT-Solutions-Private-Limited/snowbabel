@@ -73,7 +73,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function ActionController(ServerRequestInterface $request, ResponseInterface $response) {
+    public function ActionController(ServerRequestInterface $request, ResponseInterface $response)
+    {
         // get configuration object
         $this->getConfigurationObject();
 
@@ -117,7 +118,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getExtensionsList(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getExtensionsList(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         // get configuration object
         $this->getConfigurationObject();
@@ -137,7 +139,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getLanguageSelection(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getLanguageSelection(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         // get configuration object
         $this->getConfigurationObject();
@@ -158,7 +161,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getColumnSelection(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getColumnSelection(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         // get configuration object
         $this->getConfigurationObject();
@@ -178,7 +182,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getGeneralSettings(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getGeneralSettings(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         // get configuration object
         $this->getConfigurationObject();
@@ -217,7 +222,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getExtensionMenu(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getExtensionMenu(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         // Todo: check logic
         $ExtensionArray = [];
@@ -264,7 +270,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getApprovedExtensionsAdded(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getApprovedExtensionsAdded(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         // todo: check logic
         $ApprovedExtensionsArray = [];
@@ -298,7 +305,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getGeneralSettingsLanguages(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getGeneralSettingsLanguages(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         // Get Configuration Object
         $this->getConfigurationObject();
@@ -317,7 +325,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getGeneralSettingsLanguagesAdded(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getGeneralSettingsLanguagesAdded(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         // todo: check logic
         $extjsParams = [];
@@ -338,7 +347,8 @@ class ModuleUtility
      * @param ResponseInterface $response
      * @return array
     */
-    public function getListView(ServerRequestInterface $request, ResponseInterface $response) {
+    public function getListView(ServerRequestInterface $request, ResponseInterface $response)
+    {
 
         $params = [];
 
@@ -399,7 +409,8 @@ class ModuleUtility
      * Creates a configuration object
      * @return void
      */
-    private function getConfigurationObject() {
+    private function getConfigurationObject()
+    {
         if(!is_object($this->confObj) && !($this->confObj instanceof Configuration)) {
             $this->confObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Configuration');
         }
@@ -409,7 +420,8 @@ class ModuleUtility
      * Creates an object of Labels
      * @return void
      */
-    private function getSystemTranslationObject() {
+    private function getSystemTranslationObject()
+    {
         if(!is_object($this->systemTranslationObj) && !($this->systemTranslationObj instanceof Translations)) {
             $this->systemTranslationObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Service\\Translations');
         }
@@ -419,7 +431,8 @@ class ModuleUtility
      * Creates an object of Extensions
      * @return void
      */
-    private function getExtensionsObject() {
+    private function getExtensionsObject()
+    {
         if(!is_object($this->extObj) && !($this->extObj instanceof Extensions)) {
             $this->extObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Extensions', $this->confObj);
         }
@@ -429,7 +442,8 @@ class ModuleUtility
      * Creates an object of Languages
      * @return void
      */
-    private function getLanguageObject() {
+    private function getLanguageObject()
+    {
         if(!is_object($this->langObj) && !($this->langObj instanceof Languages)) {
             $this->langObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Languages', $this->confObj);
         }
@@ -440,7 +454,8 @@ class ModuleUtility
      * Creates an object of Columns
      * @return void
      */
-    private function getColumnObject() {
+    private function getColumnObject()
+    {
         if(!is_object($this->colObj) && !($this->colObj instanceof Columns)) {
             $this->colObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Columns', $this->confObj);
         }
@@ -450,7 +465,8 @@ class ModuleUtility
      * Creates an object of Labels
      * @return void
      */
-    private function getLabelsObject() {
+    private function getLabelsObject()
+    {
         if(!is_object($this->labelsObj) && !($this->labelsObj instanceof Labels)) {
             $this->labelsObj = GeneralUtility::makeInstance('PITS\\Snowbabel\\Record\\Labels', $this->confObj);
         }
