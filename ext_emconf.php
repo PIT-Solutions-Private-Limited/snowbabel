@@ -16,8 +16,8 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'author' => 'Daniel Alder, Ebin C Mathew, Chinnu L, HOJA MUSTAFFA ABDUL LATHEEF',
+    'author' => 'Daniel Alder, Ebin C Mathew, Chinnu L, Hoja Mustaffa Abdul Latheef',
     'author_email' => 'contact@pitsolutions.com',
     'author_company' => 'PIT Solutions Pvt Ltd',
-    'version' => '6.1.0',
+    'version' => '6.2.0',
 ];
