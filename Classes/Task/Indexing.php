@@ -33,7 +33,6 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 /**
  * Class Indexing
  *
- * @package PITS\Snowbabel\Task
  */
 class Indexing extends AbstractTask
 {

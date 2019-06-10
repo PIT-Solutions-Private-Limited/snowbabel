@@ -1,5 +1,4 @@
 <?php
-
 namespace PITS\Snowbabel\Service;
 
 /***************************************************************
@@ -35,7 +34,6 @@ use TYPO3\CMS\Core\Cache\CacheManager;
 /**
  * Class Configuration
  *
- * @package PITS\Snowbabel\Service
  */
 class Configuration
 {

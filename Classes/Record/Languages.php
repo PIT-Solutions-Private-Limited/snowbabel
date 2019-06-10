@@ -1,5 +1,4 @@
 <?php
-
 namespace PITS\Snowbabel\Record;
 
 /***************************************************************
@@ -30,7 +29,6 @@ use PITS\Snowbabel\Service\Configuration;
 /**
  * Class Languages
  *
- * @package PITS\Snowbabel\Record
  */
 class Languages
 {
@@ -73,10 +71,6 @@ class Languages
         $this->SelectedLanguages = $this->confObj->getUserConfiguration('SelectedLanguages');
     }
 
-
-    /**
-     *
-     */
     public function getLanguages()
     {
 
@@ -89,10 +83,6 @@ class Languages
         return $this->UserLanguages;
     }
 
-
-    /**
-     *
-     */
     private function getLanguagesUser()
     {
 
@@ -125,10 +115,6 @@ class Languages
 
     }
 
-
-    /**
-     *
-     */
     private function getLanguagesSelected()
     {
 

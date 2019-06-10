@@ -1,5 +1,4 @@
 <?php
-
 namespace PITS\Snowbabel\Record;
 
 /***************************************************************
@@ -28,7 +27,6 @@ namespace PITS\Snowbabel\Record;
 /**
  * Class Extensions
  *
- * @package PITS\Snowbabel\Record
  */
 class Extensions
 {

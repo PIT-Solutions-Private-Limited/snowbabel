@@ -1,5 +1,4 @@
 <?php
-
 namespace PITS\Snowbabel\Record;
 
 /***************************************************************
@@ -30,7 +29,6 @@ use PITS\Snowbabel\Service\Configuration;
 /**
  * Class Columns
  *
- * @package PITS\Snowbabel\Record
  */
 class Columns
 {

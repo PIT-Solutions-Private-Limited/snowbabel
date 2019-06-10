@@ -1,5 +1,4 @@
 <?php
-
 namespace PITS\Snowbabel\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -34,7 +33,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 /**
  * Class SettingsController
  *
- * @package PITS\Snowbabel\Controller
  */
 class SettingsController extends ActionController
 {

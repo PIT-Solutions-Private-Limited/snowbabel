@@ -34,7 +34,6 @@ use TYPO3\CMS\Install\Updates\AbstractUpdate;
 /**
  * Class InitOverrideLanguageKey
  *
- * @package PITS\Snowbabel\Updates
  */
 class InitOverrideLanguageKey extends AbstractUpdate
 {

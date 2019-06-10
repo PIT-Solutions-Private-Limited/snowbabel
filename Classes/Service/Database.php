@@ -1,5 +1,4 @@
 <?php
-
 namespace PITS\Snowbabel\Service;
 
 /***************************************************************
@@ -32,7 +31,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Class Database
  *
- * @package PITS\Snowbabel\Service
  */
 class Database
 {
@@ -43,9 +41,6 @@ class Database
      */
     public $queryBuilder = null;
 
-
-    /**
-     */
     public function __construct()
     {
         $this->queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class);

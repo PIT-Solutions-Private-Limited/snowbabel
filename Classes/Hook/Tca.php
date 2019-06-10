@@ -1,5 +1,4 @@
 <?php
-
 namespace PITS\Snowbabel\Hook;
 
 /***************************************************************
@@ -113,9 +112,6 @@ class Tca
     }
 
 
-    /**
-     *
-     */
     private function getConfigurationObject($extjsParams)
     {
 
@@ -126,9 +122,6 @@ class Tca
     }
 
 
-    /**
-     *
-     */
     private function getExtensionsObject()
     {
         if (!is_object($this->extObj) && !($this->extObj instanceof Extensions)) {
