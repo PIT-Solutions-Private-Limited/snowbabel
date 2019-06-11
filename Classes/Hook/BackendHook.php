@@ -1,10 +1,10 @@
 <?php
 namespace PITS\Snowbabel\Hook;
 
-/*
+/***************************************************************
  *  Copyright notice
  *
- *  (c) 2018 Ebin C Mathew | Chinnu L | HOJA MUSTAFFA ABDUL LATHEEF, PIT Solutions
+ *  (c) 2018 Ebin C Mathew | Chinnu L | HOJA MUSTAFFA ABDUL LATHEEF, PIT Solutions Pvt. Ltd.
  *
  *  You may not remove or change the name of the author above. See:
  *  http://www.gnu.org/licenses/gpl-faq.html#IWantCredit
@@ -27,21 +27,22 @@ namespace PITS\Snowbabel\Hook;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- */
+ ***************************************************************/
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class BackendHook
 {
+
     /**
      * @var string
      */
-    public $queryBuilder;
+    public $queryBuilder = null;
 
     /**
-     * Description.
-     *
+     * Description
      * @return type
      */
     public function __construct()
@@ -51,27 +52,25 @@ class BackendHook
 
     /**
      * Execute PreRenderHook for possible manipulation:
-     * Add deepl.css,overrides localization.js and recordlist.js.
-     *
-     * @param mixed $hook
+     * Add angular-material.min.css/unset backend.css
      */
     public function executePreRenderHook(&$hook)
     {
         //override Localization.js
         $flag = 0;
 
-        if (\is_array($hook['cssFiles'])) {
+        if (is_array($hook['cssFiles'])){
             foreach ($hook['cssFiles'] as $key => $value) {
-                if (\is_int(strpos($key, 'angular-material.min.css'))) {
+                if (is_int(strpos($key,"angular-material.min.css"))){
                     $flag = 1;
-
                     break;
                 }
             }
         }
-
-        if (1 === $flag) {
+        
+        if ($flag == 1){
             unset($hook['cssFiles']['sysext/backend/Resources/Public/Css/backend.css']);
-        }
+        }        
+
     }
 }

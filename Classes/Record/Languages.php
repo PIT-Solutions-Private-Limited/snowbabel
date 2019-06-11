@@ -1,7 +1,7 @@
 <?php
 namespace PITS\Snowbabel\Record;
 
-/*
+/***************************************************************
  *  Copyright notice
  *
  *  (c) 2011 Daniel Alder <info@snowflake.ch>
@@ -22,21 +22,24 @@ namespace PITS\Snowbabel\Record;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- */
+ ***************************************************************/
 
 use PITS\Snowbabel\Service\Configuration;
 
 /**
- * Class Languages.
+ * Class Languages
+ *
  */
 class Languages
 {
+
+
     /**
      * @var Configuration
      */
     protected $confObj;
 
-    protected $UserLanguages = [];
+    protected $UserLanguages = array();
 
     protected $AvailableLanguages;
 
@@ -47,6 +50,7 @@ class Languages
     protected $AllocatedGroups;
 
     protected $SelectedLanguages;
+
 
     /**
      * @param Configuration $confObj
@@ -69,6 +73,7 @@ class Languages
 
     public function getLanguages()
     {
+
         // Get User Languages
         $this->getLanguagesUser();
 
@@ -80,34 +85,47 @@ class Languages
 
     private function getLanguagesUser()
     {
+
         // Admin - application languages
         if ($this->IsAdmin) {
             $this->UserLanguages = $this->AvailableLanguages;
         } // Cm - permitted languages
         else {
+
             // get permitted languages
             $PermittedLanguages = explode(',', $this->PermittedLanguages);
 
             // add application language if is permitted language
-            if (\is_array($this->AvailableLanguages)) {
+            if (is_array($this->AvailableLanguages)) {
+
                 foreach ($this->AvailableLanguages as $AvailableLanguage) {
-                    if (false !== array_search($AvailableLanguage['LanguageKey'], $PermittedLanguages, true)) {
+
+                    if (array_search($AvailableLanguage['LanguageKey'], $PermittedLanguages) !== false) {
+
                         // add permitted language to language array
                         array_push($this->UserLanguages, $AvailableLanguage);
+
                     }
+
                 }
+
             }
+
         }
+
     }
 
     private function getLanguagesSelected()
     {
+
         // selected languages
         $SelectedLanguages = explode(',', $this->SelectedLanguages);
 
-        if (\count($this->UserLanguages) > 0) {
+        if (count($this->UserLanguages) > 0) {
+
             foreach ($this->UserLanguages as $key => $UserLanguage) {
-                if (false !== array_search($UserLanguage['LanguageId'], $SelectedLanguages, true)) {
+
+                if (array_search($UserLanguage['LanguageId'], $SelectedLanguages) !== false) {
                     $selected = true;
                 } else {
                     $selected = false;
@@ -116,6 +134,9 @@ class Languages
                 // add marker to array
                 $this->UserLanguages[$key]['LanguageSelected'] = $selected;
             }
+
         }
+
     }
+
 }

@@ -30,8 +30,10 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\AbstractUpdate;
 
+
 /**
- * Class InitOverrideLanguageKey.
+ * Class InitOverrideLanguageKey
+ *
  */
 class InitOverrideLanguageKey extends AbstractUpdate
 {
@@ -41,7 +43,7 @@ class InitOverrideLanguageKey extends AbstractUpdate
     protected $title = 'Snowbabel - Initializing the field to override the language key';
 
     /**
-     * Get title.
+     * Get title
      *
      * @return string
      */
@@ -51,13 +53,13 @@ class InitOverrideLanguageKey extends AbstractUpdate
     }
 
     /**
-     * Get description.
+     * Get description
      *
      * @return string Longer description of this updater
      */
     public function getDescription(): string
     {
-        return 'Snowbabel must initialize a field in database to avoid conflicts between some '.
+        return 'Snowbabel must initialize a field in database to avoid conflicts between some ' .
             'languages (de, de_CH and de_AT for example).';
     }
 
@@ -70,33 +72,29 @@ class InitOverrideLanguageKey extends AbstractUpdate
     }
 
     /**
-     * Checks if an update is needed.
+     * Checks if an update is needed
      *
      * @param string &$description The description for the update
-     *
+     * @return bool Whether an update is needed (TRUE) or not (FALSE)
      * @throws \InvalidArgumentException
      * @throws \Doctrine\DBAL\DBALException
-     *
-     * @return bool Whether an update is needed (TRUE) or not (FALSE)
      */
     public function checkForUpdate(&$description)
     {
-        $description = 'Snowbabel must initialize a field in database to avoid conflicts between some '.
+        $description = 'Snowbabel must initialize a field in database to avoid conflicts between some ' .
             'languages (de, de_CH and de_AT for example).';
 
-        return \count($this->listLanguagesToUpgrade());
+        return count($this->listLanguagesToUpgrade());
     }
 
     /**
      * Performs the accordant updates.
      *
-     * @param array  &$dbQueries     Queries done in this update
+     * @param array &$dbQueries Queries done in this update
      * @param string &$customMessage Custom message
-     *
+     * @return bool Whether everything went smoothly or not
      * @throws \InvalidArgumentException
      * @throws \Doctrine\DBAL\DBALException
-     *
-     * @return bool Whether everything went smoothly or not
      */
     public function performUpdate(array &$dbQueries, &$customMessage)
     {
@@ -115,17 +113,14 @@ class InitOverrideLanguageKey extends AbstractUpdate
                     $queryBuilder->expr()->in('lg_iso_2', $queryBuilder->createNamedParameter($multipleLanguages, Connection::PARAM_STR_ARRAY)),
                     $queryBuilder->expr()->neq('lg_country_iso_2', $queryBuilder->createNamedParameter('', Connection::PARAM_STR))
                 )
-                ->set('tx_snowbabel_override_language_key', 'CONCAT(LOWER(lg_iso_2), "_", UPPER(lg_country_iso_2))', false)
-                ->execute()
-            ;
+                ->set('tx_snowbabel_override_language_key', 'CONCAT(LOWER(lg_iso_2), "_", UPPER(lg_country_iso_2))', FALSE)
+                ->execute();
 
             $dbQueries[] = $queryBuilder->getSQL();
-
-            return true;
+            return TRUE;
         } catch (DBALException $e) {
-            $customMessage = 'SQL-ERROR: '.htmlspecialchars($e->getPrevious()->getMessage());
-
-            return false;
+            $customMessage = 'SQL-ERROR: ' . htmlspecialchars($e->getPrevious()->getMessage());
+            return FALSE;
         }
     }
 
@@ -133,14 +128,14 @@ class InitOverrideLanguageKey extends AbstractUpdate
     {
         // list lg_iso_2 that are used in multiple languages
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('static_languages');
-
-        return $queryBuilder->select('lg_iso_2')
+        $rows = $queryBuilder->select('lg_iso_2')
             ->from('static_languages')
             ->where($queryBuilder->expr()->isNull('tx_snowbabel_override_language_key'))
             ->groupBy('lg_iso_2')
             ->having('COUNT(*) > 1')
             ->execute()
-            ->fetchAll()
-        ;
+            ->fetchAll();
+
+        return $rows;
     }
 }
