@@ -52,7 +52,7 @@ class BackendHook
 
     /**
      * Execute PreRenderHook for possible manipulation:
-     * Add deepl.css,overrides localization.js and recordlist.js
+     * Add angular-material.min.css/unset backend.css
      */
     public function executePreRenderHook(&$hook)
     {

@@ -4,6 +4,8 @@ namespace PITS\Snowbabel\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use PITS\Snowbabel\Service\Configuration;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 
 /***************************************************************
  *  Copyright notice
@@ -27,8 +29,6 @@ use PITS\Snowbabel\Service\Configuration;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * Class SettingsController

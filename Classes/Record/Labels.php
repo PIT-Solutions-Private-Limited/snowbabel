@@ -271,7 +271,7 @@ class Labels
 
 
     /**
-     * @return
+     * @return array
      */
     public function getLabels($data)
     {
@@ -342,10 +342,6 @@ class Labels
 
     }
 
-
-    /**
-     *
-     */
     private function getLanguageObject()
     {
         if (!is_object($this->langObj) && !($this->langObj instanceof Languages)) {
